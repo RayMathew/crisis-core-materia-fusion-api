@@ -18,13 +18,26 @@ func (app *application) status(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) getAllMateria(w http.ResponseWriter, r *http.Request) {
-	user, err := app.db.GetAllMateria()
+	allMateria, err := app.db.GetAllMateria()
 
 	if err != nil {
 		app.serverError(w, r, err)
 	}
 
-	err = response.JSON(w, http.StatusOK, user)
+	err = response.JSON(w, http.StatusOK, allMateria)
+	if err != nil {
+		app.serverError(w, r, err)
+	}
+}
+
+func (app *application) getAllRules(w http.ResponseWriter, r *http.Request) {
+	rules, err := app.db.GetAllRules()
+
+	if err != nil {
+		app.serverError(w, r, err)
+	}
+
+	err = response.JSON(w, http.StatusOK, rules)
 	if err != nil {
 		app.serverError(w, r, err)
 	}

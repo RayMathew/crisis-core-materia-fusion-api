@@ -14,6 +14,7 @@ func (app *application) routes() http.Handler {
 
 	mux.HandlerFunc("GET", "/status", app.status)
 	mux.HandlerFunc("GET", "/materia", app.getAllMateria)
+	mux.HandlerFunc("GET", "/rules", app.getAllRules)
 
 	return app.recoverPanic(mux)
 }
