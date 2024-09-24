@@ -2,8 +2,6 @@ package database
 
 import (
 	"context"
-	"database/sql"
-	"fmt"
 	"time"
 
 	crisiscoremateriafusion "github.com/RayMathew/crisis-core-materia-fusion-api/internal/crisis-core-materia-fusion"
@@ -35,17 +33,25 @@ func NewConnection(dsn string) (*DB, error) {
 	return &DB{db}, nil
 }
 
-// User returns a user for a given id.
-func (s *DB) User() (*crisiscoremateriafusion.User, error) {
-	var u crisiscoremateriafusion.User
-	row := s.DB.QueryRow(`SELECT name, exists FROM test WHERE name = 'Ray'`)
-	switch err := row.Scan(&u.Name, &u.Exists); err {
-	case sql.ErrNoRows:
-		fmt.Println("No rows were returned!")
-	case nil:
-		break
-	default:
-		panic(err)
+func (s *DB) GetAllMateria() ([]crisiscoremateriafusion.Materia, error) {
+	var allMateria []crisiscoremateriafusion.Materia
+	rows, err := s.DB.Query("SELECT name, materia_type, grade, display_materia_type, description FROM materia")
+	if err != nil {
+		return nil, err
 	}
-	return &u, nil
+	defer rows.Close()
+	for rows.Next() {
+		var m crisiscoremateriafusion.Materia
+		err := rows.Scan(&m.Name, &m.Type, &m.Grade, &m.DisplayType, &m.Description)
+		if err != nil {
+			return nil, err
+		}
+		allMateria = append(allMateria, m)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return allMateria, nil
 }

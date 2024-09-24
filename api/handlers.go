@@ -17,8 +17,8 @@ func (app *application) status(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (app *application) get(w http.ResponseWriter, r *http.Request) {
-	user, err := app.db.User()
+func (app *application) getAllMateria(w http.ResponseWriter, r *http.Request) {
+	user, err := app.db.GetAllMateria()
 
 	if err != nil {
 		app.serverError(w, r, err)

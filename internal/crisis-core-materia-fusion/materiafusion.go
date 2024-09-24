@@ -1,13 +1,13 @@
 package crisiscoremateriafusion
 
-type User struct {
-	Name   string
-	Exists bool
+type Materia struct {
+	Name        string `json:"name"`
+	Type        string `json:"materia_type"`
+	Grade       int    `json:"grade"`
+	DisplayType string `json:"display_type"`
+	Description string `json:"description"`
 }
 
 type UserService interface {
-	User(id int) (*User, error)
-	Users() ([]*User, error)
-	CreateUser(u *User) error
-	DeleteUser(id int) error
+	GetAllMateria() ([]Materia, error)
 }
