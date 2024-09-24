@@ -9,3 +9,5 @@ require (
 	github.com/lmittmann/tint v1.0.5
 	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0
 )
+
+require github.com/joho/godotenv v1.5.1 // indirect

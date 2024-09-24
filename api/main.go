@@ -12,13 +12,19 @@ import (
 	"github.com/RayMathew/crisis-core-materia-fusion-api/internal/env"
 	"github.com/RayMathew/crisis-core-materia-fusion-api/internal/version"
 
+	"github.com/joho/godotenv"
 	"github.com/lmittmann/tint"
 )
 
 func main() {
+	err := godotenv.Load(".env") // Loads variables from .env file
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
+
 	logger := slog.New(tint.NewHandler(os.Stdout, &tint.Options{Level: slog.LevelDebug}))
 
-	err := run(logger)
+	err = run(logger)
 	if err != nil {
 		trace := string(debug.Stack())
 		logger.Error(err.Error(), "trace", trace)
@@ -44,9 +50,9 @@ type application struct {
 func run(logger *slog.Logger) error {
 	var cfg config
 
-	cfg.baseURL = env.GetString("BASE_URL", "http://localhost:4444")
-	cfg.httpPort = env.GetInt("HTTP_PORT", 4444)
-	cfg.db.dsn = env.GetString("DB_DSN", "user:pass@localhost:5432/db")
+	cfg.baseURL = env.GetString("BASE_URL")
+	cfg.httpPort = env.GetInt("HTTP_PORT")
+	cfg.db.dsn = env.GetString("DB_DSN")
 
 	showVersion := flag.Bool("version", false, "display version and exit")
 
@@ -57,7 +63,7 @@ func run(logger *slog.Logger) error {
 		return nil
 	}
 
-	db, err := database.New(cfg.db.dsn)
+	db, err := database.NewConnection(cfg.db.dsn)
 	if err != nil {
 		return err
 	}

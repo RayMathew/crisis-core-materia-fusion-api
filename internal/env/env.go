@@ -5,20 +5,14 @@ import (
 	"strconv"
 )
 
-func GetString(key, defaultValue string) string {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		return defaultValue
-	}
+func GetString(key string) string {
+	value := os.Getenv(key)
 
 	return value
 }
 
-func GetInt(key string, defaultValue int) int {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		return defaultValue
-	}
+func GetInt(key string) int {
+	value := os.Getenv(key)
 
 	intValue, err := strconv.Atoi(value)
 	if err != nil {
@@ -28,11 +22,8 @@ func GetInt(key string, defaultValue int) int {
 	return intValue
 }
 
-func GetBool(key string, defaultValue bool) bool {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		return defaultValue
-	}
+func GetBool(key string) bool {
+	value := os.Getenv(key)
 
 	boolValue, err := strconv.ParseBool(value)
 	if err != nil {
