@@ -16,3 +16,16 @@ func (app *application) status(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, r, err)
 	}
 }
+
+func (app *application) get(w http.ResponseWriter, r *http.Request) {
+	user, err := app.db.User()
+
+	if err != nil {
+		app.serverError(w, r, err)
+	}
+
+	err = response.JSON(w, http.StatusOK, user)
+	if err != nil {
+		app.serverError(w, r, err)
+	}
+}
