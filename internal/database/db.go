@@ -55,26 +55,3 @@ func (s *DB) GetAllMateria() ([]crisiscoremateriafusion.Materia, error) {
 
 	return allMateria, nil
 }
-
-func (s *DB) GetAllRules() ([]crisiscoremateriafusion.Rule, error) {
-	var rules []crisiscoremateriafusion.Rule
-	rows, err := s.DB.Query("SELECT first_type, second_type, resultant_type FROM fusion_rules")
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	for rows.Next() {
-		var r crisiscoremateriafusion.Rule
-		err := rows.Scan(&r.FirstType, &r.SecondType, &r.ResultantType)
-		if err != nil {
-			return nil, err
-		}
-		rules = append(rules, r)
-	}
-
-	if err = rows.Err(); err != nil {
-		return nil, err
-	}
-
-	return rules, nil
-}

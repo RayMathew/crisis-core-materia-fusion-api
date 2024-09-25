@@ -29,16 +29,3 @@ func (app *application) getAllMateria(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, r, err)
 	}
 }
-
-func (app *application) getAllRules(w http.ResponseWriter, r *http.Request) {
-	rules, err := app.db.GetAllRules()
-
-	if err != nil {
-		app.serverError(w, r, err)
-	}
-
-	err = response.JSON(w, http.StatusOK, rules)
-	if err != nil {
-		app.serverError(w, r, err)
-	}
-}
