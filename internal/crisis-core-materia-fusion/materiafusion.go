@@ -8,6 +8,12 @@ type Materia struct {
 	Description string `json:"description"`
 }
 
+type MateriaDTO struct {
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+}
+
 type Rule struct {
 	FirstType     string `json:"first_type"`
 	SecondType    string `json:"second_type"`
