@@ -8,19 +8,6 @@ type Materia struct {
 	Description string `json:"description"`
 }
 
-type MateriaDTO struct {
-	Name        string `json:"name"`
-	Type        string `json:"type"`
-	Description string `json:"description"`
-}
-
-type MateriaFusionRequest struct {
-	Materia1Name     string
-	Materia1Mastered bool
-	Materia2Name     string
-	Materia2Mastered bool
-}
-
 type BasicCombinationRule struct {
 	FirstMateriaType     MateriaType
 	SecondMateriaType    MateriaType
