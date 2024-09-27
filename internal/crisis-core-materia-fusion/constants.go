@@ -40,3 +40,9 @@ const (
 	Dualcast          MateriaType = "Dualcast"
 	DMW               MateriaType = "DMW"
 )
+
+type CacheKey string
+
+const (
+	AllMateriaCacheKey CacheKey = "allMateria"
+)

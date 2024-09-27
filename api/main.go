@@ -45,6 +45,8 @@ type application struct {
 	db     *database.DB
 	logger *slog.Logger
 	wg     sync.WaitGroup
+	cache  map[string]interface{} // (string key, any value)
+	mu     sync.Mutex
 }
 
 func run(logger *slog.Logger) error {
@@ -73,6 +75,7 @@ func run(logger *slog.Logger) error {
 		config: cfg,
 		db:     db,
 		logger: logger,
+		cache:  make(map[string]interface{}),
 	}
 
 	return app.serveHTTP()
