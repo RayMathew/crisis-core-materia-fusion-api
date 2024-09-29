@@ -25,16 +25,16 @@ var FITBasicRules = []BasicCombinationRule{
 	{Ice, Lightning, Fire}, // inverse of above rule
 
 	// FIT + Restore Rules
-	{Fire, Restore, Fire},           // inverse rule NOT applicable
-	{Ice, Restore, Ice},             // inverse rule NOT applicable
-	{Lightning, Restore, Lightning}, // inverse rule NOT applicable
+	{Fire, Restore, Fire},
+	{Ice, Restore, Ice},
+	{Lightning, Restore, Lightning},
 
 	// FIT + Defense Rules are not basic
 
 	// FIT + Status Defense Rules
-	{Fire, StatusDefense, FireStatus},           // inverse rule NOT applicable
-	{Ice, StatusDefense, IceStatus},             // inverse rule NOT applicable
-	{Lightning, StatusDefense, LightningStatus}, // inverse rule NOT applicable
+	{Fire, StatusDefense, FireStatus},
+	{Ice, StatusDefense, IceStatus},
+	{Lightning, StatusDefense, LightningStatus},
 
 	// FIT + Absorb Magic Rules
 	{Fire, AbsorbMagic, AbsorbMagic},

@@ -95,6 +95,13 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	exchangePositionsIfNeeded(&fusionReq, &materia1Grade, &materia2Grade, &materia1Type, &materia2Type)
+	// app.logger.Info("positions after shuffle")
+	// app.logger.Info("materia 1")
+	// fmt.Println(materia1Grade, materia1Type, fusionReq.Materia1Name, fusionReq.Materia1Mastered)
+	// app.logger.Info("materia 2")
+	// fmt.Println(materia2Grade, materia2Type, fusionReq.Materia2Name, fusionReq.Materia2Mastered)
+
 	relevantBasicRuleMap := ccmf.BasicRuleMap[ccmf.MateriaType(materia1Type)]
 	var relevantBasicRule ccmf.BasicCombinationRule
 
@@ -106,12 +113,16 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var resultantMateria ccmf.MateriaDTO
+	resultantMateriaGrade := determineGrade(fusionReq, materia1Grade)
 
 	if relevantBasicRule.FirstMateriaType == "" {
-		app.logger.Info("none of the basic rules satisfy the requirement")
+		app.logger.Info("none of the basic rules satisfy the requirement.")
+
+		//get final output using complex rules
+		resultantMateria = useComplexRules(fusionReq, materia1Grade, materia2Grade, materia1Type, materia2Type)
 	} else {
+		//get final output using basic rules
 		fmt.Println(materia1Grade, materia2Grade, materia1Type, materia2Type)
-		resultantMateriaGrade := determineGrade(fusionReq, materia1Grade, materia2Grade)
 		resultantMateriaType := relevantBasicRule.ResultantMateriaType
 		fmt.Println(resultantMateriaGrade, resultantMateriaType)
 
@@ -132,17 +143,30 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func determineGrade(req ccmf.MateriaFusionRequest, materia1Grade, materia2Grade int) int {
-	var higherGrade int
-	var finalGrade int
+// positions are exchange if materia2 grade is higher
+func exchangePositionsIfNeeded(fusionReq *ccmf.MateriaFusionRequest, materia1Grade, materia2Grade *int, materia1Type, materia2Type *string) {
+	if *materia2Grade > *materia1Grade {
+		tempGrade := *materia1Grade
+		*materia1Grade = *materia2Grade
+		*materia2Grade = tempGrade
 
-	if materia1Grade >= materia2Grade {
-		higherGrade = materia1Grade
-	} else {
-		higherGrade = materia2Grade
+		tempType := *materia1Type
+		*materia1Type = *materia2Type
+		*materia2Type = tempType
+
+		tempName := fusionReq.Materia1Name
+		fusionReq.Materia1Name = fusionReq.Materia2Name
+		fusionReq.Materia2Name = tempName
+
+		tempMastered := fusionReq.Materia1Mastered
+		fusionReq.Materia1Mastered = fusionReq.Materia2Mastered
+		fusionReq.Materia2Mastered = tempMastered
 	}
+}
 
-	finalGrade = higherGrade
+func determineGrade(req ccmf.MateriaFusionRequest, materia1Grade int) int {
+	finalGrade := materia1Grade
+
 	if finalGrade != 8 && req.Materia1Mastered {
 		finalGrade += 1
 	}
@@ -150,6 +174,11 @@ func determineGrade(req ccmf.MateriaFusionRequest, materia1Grade, materia2Grade 
 		finalGrade += 1
 	}
 	return finalGrade
+}
+
+func useComplexRules(fusionReq ccmf.MateriaFusionRequest, materia1Grade, materia2Grade int, materia1Type, materia2Type string) (resultantMateria ccmf.MateriaDTO) {
+
+	return
 }
 
 func (app *application) getAllMateriaFromApprSource() (allMateria []ccmf.Materia, err error) {
