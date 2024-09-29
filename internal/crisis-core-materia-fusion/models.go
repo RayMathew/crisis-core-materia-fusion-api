@@ -2245,3 +2245,38 @@ type MateriaFusionService interface {
 	// GetAllMateria() ([]Materia, error)
 	// GetAllRules() ([]Rule, error)
 }
+
+var BasicRuleMap = map[MateriaType][]BasicCombinationRule{
+	Fire:              FITBasicRules,
+	Ice:               FITBasicRules,
+	Lightning:         FITBasicRules,
+	Restore:           RestoreBasicRules,
+	Defense:           DefenseBasicRules,
+	StatusDefense:     StatusDefenseBasicRules,
+	AbsorbMagic:       AbsorbMagicBasicRules,
+	StatusMagic:       StatusMagicBasicRules,
+	FireStatus:        FITStatusBasicRules,
+	IceStatus:         FITStatusBasicRules,
+	LightningStatus:   FITStatusBasicRules,
+	Gravity:           GravityBasicRules,
+	Ultimate:          UltimateBasicRules,
+	QuickAttack:       QuickAttackBasicRules,
+	QuickAttackStatus: QuickAttackStatusBasicRules,
+	BladeArts:         BladeArtsBasicRules,
+	BladeArtsStatus:   BladeArtsStatusBasicRules,
+	FireBlade:         FITBladeBasicRules,
+	IceBlade:          FITBladeBasicRules,
+	LightningBlade:    FITBladeBasicRules,
+	AbsorbBlade:       AbsorbBladeBasicRules,
+	Item:              ItemBasicRules,
+	Punch:             PunchBasicRules,
+	HPUp:              HPUpBasicRules,
+	MPUp:              MPUpBasicRules,
+	APUp:              APUpBasicRules,
+	ATKUp:             ATKUpBasicRules,
+	VITUp:             VITUpBasicRules,
+	MAGUp:             MAGUpBasicRules,
+	SPRUp:             SPRUpBasicRules,
+	SPTurbo:           SPTurboBasicRules,
+	Libra:             LibraBasicRules,
+}
