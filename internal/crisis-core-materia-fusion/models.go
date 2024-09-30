@@ -17,6 +17,9 @@ type BasicCombinationRule struct {
 // meaning of "inverse rule NOT applicable": exchanging FirstMateriaType and SecondMateriaType gives a different ResultantMateriaType
 
 var FITBasicRules = []BasicCombinationRule{
+	{Fire, Fire, Fire},
+	{Ice, Ice, Ice},
+	{Lightning, Lightning, Lightning},
 	{Fire, Ice, Lightning},
 	{Ice, Fire, Lightning}, // inverse of above rule
 	{Fire, Lightning, Ice},
@@ -38,79 +41,55 @@ var FITBasicRules = []BasicCombinationRule{
 
 	// FIT + Absorb Magic Rules
 	{Fire, AbsorbMagic, AbsorbMagic},
-	// {AbsorbMagic, Fire, AbsorbMagic}, // inverse of above rule
 	{Ice, AbsorbMagic, AbsorbMagic},
-	// {AbsorbMagic, Ice, AbsorbMagic}, // inverse of above rule
 	{Lightning, AbsorbMagic, AbsorbMagic},
-	// {AbsorbMagic, Lightning, AbsorbMagic}, // inverse of above rule
 
 	// FIT + Status Magic Rules
 	{Fire, StatusMagic, FireStatus},
-	// {AbsorbMagic, Fire, FireStatus}, // inverse of above rule
 	{Ice, StatusMagic, IceStatus},
-	// {AbsorbMagic, Ice, IceStatus}, // inverse of above rule
 	{Lightning, StatusMagic, LightningStatus},
-	// {AbsorbMagic, Lightning, LightningStatus}, // inverse of above rule
 
 	// Fire + FITStatus Rules
 	{Fire, FireStatus, FireStatus},
-	// {FireStatus, Fire, FireStatus}, // inverse of above rule
 	{Fire, IceStatus, LightningStatus},
-	// {IceStatus, Fire, LightningStatus}, // inverse of above rule
 	{Fire, LightningStatus, IceStatus},
-	// {LightningStatus, Fire, IceStatus}, // inverse of above rule
 
 	// Ice + FITStatus Rules
 	{Ice, IceStatus, IceStatus},
-	// {IceStatus, Ice, IceStatus}, // inverse of above rule
 	{Ice, FireStatus, LightningStatus},
-	// {FireStatus, Ice, LightningStatus}, // inverse of above rule
 	{Ice, LightningStatus, FireStatus},
-	// {LightningStatus, Ice, FireStatus}, // inverse of above rule
 
 	// Lightning + FITStatus Rules
 	{Lightning, LightningStatus, LightningStatus},
-	// {LightningStatus, Lightning, LightningStatus}, // inverse of above rule
 	{Lightning, FireStatus, IceStatus},
-	// {FireStatus, Lightning, IceStatus}, // inverse of above rule
 	{Lightning, IceStatus, FireStatus},
-	// {IceStatus, Lightning, FireStatus}, // inverse of above rule
 
 	// FIT + Gravity Rules are not basic
 
 	// FIT + Ultimate Rules
 	{Fire, Ultimate, Fire},
-	// {Ultimate, Fire, Fire}, // inverse of above rule
 	{Ice, Ultimate, Ice},
-	// {Ultimate, Ice, Ice}, // inverse of above rule
 	{Lightning, Ultimate, Lightning},
-	// {Ultimate, Lightning, Lightning}, // inverse of above rule
 
 	// FIT + Quick Attack Rules
 	{Fire, QuickAttack, FireBlade},
-	// {QuickAttack, Fire, FireBlade}, // inverse of above rule
 	{Ice, QuickAttack, IceBlade},
-	// {QuickAttack, Ice, IceBlade}, // inverse of above rule
 	{Lightning, QuickAttack, LightningBlade},
-	// {QuickAttack, Lightning, LightningBlade}, // inverse of above rule
 
 	// FIT + Quick Attack Status Rules
-	{Fire, QuickAttackStatus, FireStatus},           // inverse rule NOT applicable
-	{Ice, QuickAttackStatus, IceStatus},             // inverse rule NOT applicable
-	{Lightning, QuickAttackStatus, LightningStatus}, // inverse rule NOT applicable
+	{Fire, QuickAttackStatus, FireStatus},
+	{Ice, QuickAttackStatus, IceStatus},
+	{Lightning, QuickAttackStatus, LightningStatus},
 
 	// FIT + Blade Arts Rules
 	{Fire, BladeArts, FireBlade},
-	// {BladeArts, Fire, FireBlade}, // inverse of above rule
 	{Ice, BladeArts, IceBlade},
-	// {BladeArts, Ice, IceBlade}, // inverse of above rule
 	{Lightning, BladeArts, LightningBlade},
-	// {BladeArts, Lightning, LightningBlade}, // inverse of above rule
 
 	// FIT + Blade Arts Status Rules
-	{Fire, BladeArtsStatus, FireStatus},           // inverse rule NOT applicable
-	{Ice, BladeArtsStatus, IceStatus},             // inverse rule NOT applicable
-	{Lightning, BladeArtsStatus, LightningStatus}, // inverse rule NOT applicable
+	{Fire, BladeArtsStatus, FireStatus},
+	{Ice, BladeArtsStatus, IceStatus},
+	{Lightning, BladeArtsStatus, LightningStatus},
 
 	// Fire + FIT Blade Rules
 	{Fire, FireBlade, FireBlade},
@@ -128,9 +107,9 @@ var FITBasicRules = []BasicCombinationRule{
 	{Lightning, LightningBlade, LightningBlade},
 
 	// FIT + Absorb Blade Rules
-	{Fire, AbsorbBlade, AbsorbMagic},      // inverse rule NOT applicable
-	{Ice, AbsorbBlade, AbsorbMagic},       // inverse rule NOT applicable
-	{Lightning, AbsorbBlade, AbsorbMagic}, // inverse rule NOT applicable
+	{Fire, AbsorbBlade, AbsorbMagic},
+	{Ice, AbsorbBlade, AbsorbMagic},
+	{Lightning, AbsorbBlade, AbsorbMagic},
 
 	// FIT + Item Rules are not basic
 
@@ -140,44 +119,44 @@ var FITBasicRules = []BasicCombinationRule{
 	{Lightning, Punch, Lightning},
 
 	// FIT + HP Up Rules
-	{Fire, HPUp, Defense},      // inverse rule NOT applicable
-	{Ice, HPUp, Defense},       // inverse rule NOT applicable
-	{Lightning, HPUp, Defense}, // inverse rule NOT applicable
+	{Fire, HPUp, Defense},
+	{Ice, HPUp, Defense},
+	{Lightning, HPUp, Defense},
 
 	// FIT + MP Up Rules
-	{Fire, MPUp, Fire},           // inverse rule NOT applicable
-	{Ice, MPUp, Ice},             // inverse rule NOT applicable
-	{Lightning, MPUp, Lightning}, // inverse rule NOT applicable
+	{Fire, MPUp, Fire},
+	{Ice, MPUp, Ice},
+	{Lightning, MPUp, Lightning},
 
 	// FIT + AP Up Rules
-	{Fire, APUp, Fire},           // inverse rule NOT applicable
-	{Ice, APUp, Ice},             // inverse rule NOT applicable
-	{Lightning, APUp, Lightning}, // inverse rule NOT applicable
+	{Fire, APUp, Fire},
+	{Ice, APUp, Ice},
+	{Lightning, APUp, Lightning},
 
 	// FIT + ATK Up Rules
-	{Fire, ATKUp, FireBlade},           // inverse rule NOT applicable
-	{Ice, ATKUp, IceBlade},             // inverse rule NOT applicable
-	{Lightning, ATKUp, LightningBlade}, // inverse rule NOT applicable
+	{Fire, ATKUp, FireBlade},
+	{Ice, ATKUp, IceBlade},
+	{Lightning, ATKUp, LightningBlade},
 
 	// FIT + VIT Up Rules
-	{Fire, VITUp, Defense},      // inverse rule NOT applicable
-	{Ice, VITUp, Defense},       // inverse rule NOT applicable
-	{Lightning, VITUp, Defense}, // inverse rule NOT applicable
+	{Fire, VITUp, Defense},
+	{Ice, VITUp, Defense},
+	{Lightning, VITUp, Defense},
 
 	// FIT + MAG Up Rules
-	{Fire, MAGUp, Fire},           // inverse rule NOT applicable
-	{Ice, MAGUp, Ice},             // inverse rule NOT applicable
-	{Lightning, MAGUp, Lightning}, // inverse rule NOT applicable
+	{Fire, MAGUp, Fire},
+	{Ice, MAGUp, Ice},
+	{Lightning, MAGUp, Lightning},
 
 	// FIT + SPR Up Rules
-	{Fire, SPRUp, Defense},      // inverse rule NOT applicable
-	{Ice, SPRUp, Defense},       // inverse rule NOT applicable
-	{Lightning, SPRUp, Defense}, // inverse rule NOT applicable
+	{Fire, SPRUp, Defense},
+	{Ice, SPRUp, Defense},
+	{Lightning, SPRUp, Defense},
 
 	// FIT + SP Turbo Rules
-	{Fire, SPTurbo, Fire},           // inverse rule NOT applicable
-	{Ice, SPTurbo, Ice},             // inverse rule NOT applicable
-	{Lightning, SPTurbo, Lightning}, // inverse rule NOT applicable
+	{Fire, SPTurbo, Fire},
+	{Ice, SPTurbo, Ice},
+	{Lightning, SPTurbo, Lightning},
 
 	// FIT + Libra Rules
 	{Fire, Libra, Fire},
@@ -191,10 +170,13 @@ var RestoreBasicRules = []BasicCombinationRule{
 	{Restore, Ice, Restore},
 	{Restore, Lightning, Restore},
 
+	// Restore + Restore Rules
+	{Restore, Restore, Restore},
+
 	// Restore + Defense Rules are not basic
 
 	// Restore + Status Defense Rules
-	{Fire, StatusDefense, Restore},
+	{Restore, StatusDefense, Restore},
 
 	// Restore + Absorb Magic Rules
 	{Restore, AbsorbMagic, Restore},
@@ -271,8 +253,11 @@ var DefenseBasicRules = []BasicCombinationRule{
 	{Defense, Ice, Defense},
 	{Defense, Lightning, Defense},
 
-	// Restore + Defense Rules
+	// Defense+ Restore Rules
 	{Defense, Restore, Defense},
+
+	// Defense + Defense Rules
+	{Defense, Defense, Defense},
 
 	// Defense + Status Defense Rules
 	{Defense, StatusDefense, Defense},
@@ -350,6 +335,9 @@ var StatusDefenseBasicRules = []BasicCombinationRule{
 	{StatusDefense, Restore, StatusDefense},
 
 	// StatusDefense + Defense Rules are not basic
+
+	// StatusDefense + Status Defense Rules
+	{StatusDefense, StatusDefense, StatusDefense},
 
 	// StatusDefense + Absorb Magic Rules
 	{StatusDefense, AbsorbMagic, StatusDefense},
@@ -437,6 +425,9 @@ var AbsorbMagicBasicRules = []BasicCombinationRule{
 	// AbsorbMagic + Status Defense Rules
 	{AbsorbMagic, StatusDefense, AbsorbMagic},
 
+	// AbsorbMagic + Absorb Magic Rules
+	{AbsorbMagic, AbsorbMagic, AbsorbMagic},
+
 	// AbsorbMagic + Status Magic Rules
 	{AbsorbMagic, StatusMagic, AbsorbMagic},
 
@@ -520,6 +511,9 @@ var StatusMagicBasicRules = []BasicCombinationRule{
 
 	// StatusMagic + Absorb Magic Rules
 	{StatusMagic, AbsorbMagic, AbsorbMagic},
+
+	// StatusMagic + Status Magic Rules
+	{StatusMagic, StatusMagic, AbsorbMagic},
 
 	// StatusMagic + FITStatus Rules
 	{StatusMagic, FireStatus, FireStatus},
@@ -762,6 +756,9 @@ var GravityBasicRules = []BasicCombinationRule{
 	{Gravity, IceStatus, Gravity},
 	{Gravity, LightningStatus, Gravity},
 
+	// Gravity + Gravity Rules
+	{Gravity, Gravity, Gravity},
+
 	// Gravity + Ultimate Rules
 	{Gravity, Ultimate, Gravity},
 
@@ -839,6 +836,9 @@ var UltimateBasicRules = []BasicCombinationRule{
 
 	// Ultimate + Gravity Rules
 	{Ultimate, Gravity, Ultimate},
+
+	// Ultimate + Ultimate Rules
+	{Ultimate, Ultimate, Ultimate},
 
 	// Ultimate + Quick Attack Rules
 	{Ultimate, QuickAttack, QuickAttack},
@@ -922,6 +922,9 @@ var QuickAttackBasicRules = []BasicCombinationRule{
 	// QuickAttack + Ultimate Rules
 	{QuickAttack, Ultimate, QuickAttack},
 
+	// QuickAttack + Quick Attack Rules
+	{QuickAttack, QuickAttack, QuickAttack},
+
 	// QuickAttack + Quick Attack Status Rules
 	{QuickAttack, QuickAttackStatus, QuickAttackStatus},
 
@@ -999,6 +1002,9 @@ var QuickAttackStatusBasicRules = []BasicCombinationRule{
 
 	// QuickAttackStatus + Quick Attack Rules
 	{QuickAttackStatus, QuickAttack, QuickAttackStatus},
+
+	// QuickAttackStatus + Quick Attack Status Rules
+	{QuickAttackStatus, QuickAttackStatus, QuickAttackStatus},
 
 	// QuickAttackStatus + Blade Arts Rules
 	{QuickAttackStatus, BladeArts, QuickAttackStatus},
@@ -1082,6 +1088,9 @@ var BladeArtsBasicRules = []BasicCombinationRule{
 	// BladeArts + Quick Attack Status Rules
 	{BladeArts, QuickAttackStatus, QuickAttackStatus},
 
+	// BladeArts + Blade Arts Rules
+	{BladeArts, BladeArts, BladeArts},
+
 	// BladeArts + Blade Arts Status Rules
 	{BladeArts, BladeArtsStatus, BladeArtsStatus},
 
@@ -1163,6 +1172,9 @@ var BladeArtsStatusBasicRules = []BasicCombinationRule{
 
 	// BladeArtsStatus + Blade Arts Rules
 	{BladeArtsStatus, BladeArts, BladeArtsStatus},
+
+	// BladeArtsStatus + Blade Arts Status Rules
+	{BladeArtsStatus, BladeArtsStatus, BladeArtsStatus},
 
 	// BladeArtsStatus + FIT Blade Rules
 	{BladeArtsStatus, FireBlade, BladeArtsStatus},
@@ -1330,7 +1342,8 @@ var AbsorbBladeBasicRules = []BasicCombinationRule{
 
 	// AbsorbBlade + FIT Blade Rules are not basic
 
-	// AbsorbBlade + Absorb Blade Rules are not basic
+	// AbsorbBlade + Absorb Blade Rules
+	{AbsorbBlade, AbsorbBlade, AbsorbBlade},
 
 	// AbsorbBlade + Item Rules are not basic
 
@@ -1408,6 +1421,9 @@ var ItemBasicRules = []BasicCombinationRule{
 
 	// Item + Absorb Blade Rules
 	{Item, AbsorbBlade, Item},
+
+	// Item + Item Rules
+	{Item, Item, Item},
 
 	// Item + Punch Rules
 	{Item, Punch, Item},
@@ -1490,6 +1506,9 @@ var PunchBasicRules = []BasicCombinationRule{
 
 	// Punch + Item Rules
 	{Punch, Item, Item},
+
+	// Punch + Punch Rules
+	{Punch, Punch, Punch},
 
 	// Punch + HP Up Rules
 	{Punch, HPUp, HPUp},
@@ -1574,6 +1593,9 @@ var HPUpBasicRules = []BasicCombinationRule{
 	// HPUp + Punch Rules
 	{HPUp, Punch, HPUp},
 
+	// HPUp + HP Up Rules
+	{HPUp, HPUp, HPUp},
+
 	// HPUp + MP Up Rules
 	{HPUp, MPUp, HPUp},
 
@@ -1656,6 +1678,9 @@ var MPUpBasicRules = []BasicCombinationRule{
 
 	// MPUp + HP Up Rules
 	{MPUp, HPUp, MPUp},
+
+	// MPUp + MP Up Rules
+	{MPUp, MPUp, MPUp},
 
 	// MPUp + AP Up Rules
 	{MPUp, APUp, MPUp},
@@ -1740,6 +1765,9 @@ var APUpBasicRules = []BasicCombinationRule{
 	// APUp + MP Up Rules
 	{APUp, MPUp, APUp},
 
+	// APUp + AP Up Rules
+	{APUp, APUp, APUp},
+
 	// APUp + ATK Up Rules
 	{APUp, ATKUp, APUp},
 
@@ -1822,6 +1850,9 @@ var ATKUpBasicRules = []BasicCombinationRule{
 
 	// ATKUp + AP Up Rules
 	{ATKUp, APUp, ATKUp},
+
+	// ATKUp + ATK Up Rules
+	{ATKUp, ATKUp, ATKUp},
 
 	// ATKUp + VIT Up Rules
 	{ATKUp, VITUp, ATKUp},
@@ -1906,6 +1937,9 @@ var VITUpBasicRules = []BasicCombinationRule{
 	// VITUp + ATK Up Rules
 	{VITUp, ATKUp, VITUp},
 
+	// VITUp + VIT Up Rules
+	{VITUp, VITUp, VITUp},
+
 	// VITUp + MAG Up Rules
 	{VITUp, MAGUp, VITUp},
 
@@ -1988,6 +2022,9 @@ var MAGUpBasicRules = []BasicCombinationRule{
 
 	// MAGUp + VIT Up Rules
 	{MAGUp, VITUp, MAGUp},
+
+	// MAGUp + MAG Up Rules
+	{MAGUp, MAGUp, MAGUp},
 
 	// MAGUp + SPR Up Rules
 	{MAGUp, SPRUp, MAGUp},
@@ -2072,6 +2109,9 @@ var SPRUpBasicRules = []BasicCombinationRule{
 	// SPRUp + MAG Up Rules
 	{SPRUp, MAGUp, SPRUp},
 
+	// SPRUp + SPR Up Rules
+	{SPRUp, SPRUp, SPRUp},
+
 	// SPRUp + SP Turbo Rules
 	{SPRUp, SPTurbo, SPRUp},
 
@@ -2155,6 +2195,9 @@ var SPTurboBasicRules = []BasicCombinationRule{
 	// SPTurbo + SPR Up Rules
 	{SPTurbo, SPRUp, SPTurbo},
 
+	// SPTurbo + SP Turbo Rules
+	{SPTurbo, SPTurbo, SPTurbo},
+
 	// SPTurbo + Libra Rules
 	{SPTurbo, Libra, SPTurbo},
 }
@@ -2237,6 +2280,9 @@ var LibraBasicRules = []BasicCombinationRule{
 
 	// Libra + SP Turbo Rules
 	{Libra, SPTurbo, SPTurbo},
+
+	// Libra + Libra Rules
+	{Libra, Libra, Libra},
 }
 
 // rules for Dash, Dualcast, Fullcure, DMW are pending
