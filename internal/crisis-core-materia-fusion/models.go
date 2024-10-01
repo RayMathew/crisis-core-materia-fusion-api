@@ -334,7 +334,8 @@ var StatusDefenseBasicRules = []BasicCombinationRule{
 	// StatusDefense + Restore Rules
 	{StatusDefense, Restore, StatusDefense},
 
-	// StatusDefense + Defense Rules are not basic
+	// StatusDefense + Defense Rules
+	{StatusDefense, Defense, Defense},
 
 	// StatusDefense + Status Defense Rules
 	{StatusDefense, StatusDefense, StatusDefense},
@@ -376,7 +377,7 @@ var StatusDefenseBasicRules = []BasicCombinationRule{
 	// StatusDefense + Absorb Blade Rules
 	{StatusDefense, AbsorbBlade, StatusDefense},
 
-	// StatusDefense + Item Rules are not basic
+	// StatusDefense + Item Rules
 	{StatusDefense, Item, StatusDefense},
 
 	// StatusDefense + Punch Rules
@@ -436,8 +437,7 @@ var AbsorbMagicBasicRules = []BasicCombinationRule{
 	{AbsorbMagic, IceStatus, AbsorbMagic},
 	{AbsorbMagic, LightningStatus, AbsorbMagic},
 
-	// AbsorbMagic + Gravity Rules
-	{AbsorbMagic, Gravity, AbsorbMagic},
+	// AbsorbMagic + Gravity Rules are not basic
 
 	// AbsorbMagic + Ultimate Rules
 	{AbsorbMagic, Ultimate, AbsorbMagic},
@@ -476,11 +476,9 @@ var AbsorbMagicBasicRules = []BasicCombinationRule{
 	// AbsorbMagic + AP Up Rules
 	{AbsorbMagic, APUp, AbsorbMagic},
 
-	// AbsorbMagic + ATK Up Rules
-	{AbsorbMagic, ATKUp, AbsorbBlade},
+	// AbsorbMagic + ATK Up Rules are not basic
 
-	// AbsorbMagic + VIT Up Rules
-	{AbsorbMagic, VITUp, AbsorbBlade},
+	// AbsorbMagic + VIT Up Rules are not basic
 
 	// AbsorbMagic + MAG Up Rules
 	{AbsorbMagic, MAGUp, AbsorbMagic},
@@ -513,7 +511,7 @@ var StatusMagicBasicRules = []BasicCombinationRule{
 	{StatusMagic, AbsorbMagic, AbsorbMagic},
 
 	// StatusMagic + Status Magic Rules
-	{StatusMagic, StatusMagic, AbsorbMagic},
+	{StatusMagic, StatusMagic, StatusMagic},
 
 	// StatusMagic + FITStatus Rules
 	{StatusMagic, FireStatus, FireStatus},
@@ -698,8 +696,8 @@ var FITStatusBasicRules = []BasicCombinationRule{
 
 	// FITStatus + AP Up Rules
 	{FireStatus, APUp, FireStatus},
-	{IceStatus, APUp, Ice},
-	{LightningStatus, APUp, Lightning},
+	{IceStatus, APUp, IceStatus},
+	{LightningStatus, APUp, LightningStatus},
 
 	// FITStatus + ATK Up Rules
 	{FireStatus, ATKUp, FireBlade},
@@ -712,17 +710,17 @@ var FITStatusBasicRules = []BasicCombinationRule{
 	{LightningStatus, VITUp, StatusDefense},
 
 	// FITStatus + MAG Up Rules
-	{FireStatus, MAGUp, Fire},
+	{FireStatus, MAGUp, FireStatus},
 	{IceStatus, MAGUp, IceStatus},
-	{LightningStatus, MAGUp, Lightning},
+	{LightningStatus, MAGUp, LightningStatus},
 
 	// FITStatus + SPR Up Rules
-	{FireStatus, SPRUp, Defense},
-	{IceStatus, SPRUp, Defense},
-	{LightningStatus, SPRUp, Defense},
+	{FireStatus, SPRUp, StatusDefense},
+	{IceStatus, SPRUp, StatusDefense},
+	{LightningStatus, SPRUp, StatusDefense},
 
 	// FITStatus + SP Turbo Rules
-	{FireStatus, SPTurbo, Fire},
+	{FireStatus, SPTurbo, FireStatus},
 	{IceStatus, SPTurbo, IceStatus},
 	{LightningStatus, SPTurbo, LightningStatus},
 
@@ -742,7 +740,7 @@ var GravityBasicRules = []BasicCombinationRule{
 	{Gravity, Restore, Gravity},
 
 	// Gravity + Defense Rules
-	{Gravity, Restore, Gravity},
+	{Gravity, Defense, Gravity},
 
 	// Gravity + Status Defense Rules
 	{Gravity, StatusDefense, Gravity},
@@ -762,14 +760,12 @@ var GravityBasicRules = []BasicCombinationRule{
 	// Gravity + Ultimate Rules
 	{Gravity, Ultimate, Gravity},
 
-	// Gravity + Quick Attack Rules
-	{Gravity, QuickAttack, BladeArts},
+	// Gravity + Quick Attack Rules are not basic
 
 	// Gravity + Quick Attack Status Rules
 	{Gravity, QuickAttackStatus, Gravity},
 
-	// Gravity + Blade Arts Rules
-	{Gravity, BladeArts, BladeArts},
+	// Gravity + Blade Arts Rules are not basic
 
 	// Gravity + Blade Arts Status Rules
 	{Gravity, BladeArtsStatus, Gravity},
@@ -791,15 +787,14 @@ var GravityBasicRules = []BasicCombinationRule{
 	// Gravity + AP Up Rules
 	{Gravity, APUp, QuickAttack},
 
-	// Gravity + ATK Up Rules
-	{Gravity, ATKUp, BladeArts},
+	// Gravity + ATK Up Rules are not basic
 
 	// Gravity + VIT Up Rules are not basic
 
 	// Gravity + MAG Up Rules
 	{Gravity, MAGUp, Gravity},
 
-	// StatusMagic + SPR Up Rules are not basic
+	// Gravity + SPR Up Rules are not basic
 
 	// Gravity + SP Turbo Rules
 	{Gravity, SPTurbo, Gravity},
@@ -835,7 +830,7 @@ var UltimateBasicRules = []BasicCombinationRule{
 	{Ultimate, LightningStatus, IceStatus},
 
 	// Ultimate + Gravity Rules
-	{Ultimate, Gravity, Ultimate},
+	{Ultimate, Gravity, Gravity},
 
 	// Ultimate + Ultimate Rules
 	{Ultimate, Ultimate, Ultimate},
@@ -863,7 +858,7 @@ var UltimateBasicRules = []BasicCombinationRule{
 	{Ultimate, Item, Item},
 
 	// Ultimate + Punch Rules
-	{Ultimate, Punch, Punch},
+	{Ultimate, Punch, Ultimate},
 
 	// Ultimate + HP Up Rules
 	{Ultimate, HPUp, HPUp},
@@ -944,31 +939,31 @@ var QuickAttackBasicRules = []BasicCombinationRule{
 	{QuickAttack, Punch, QuickAttack},
 
 	// QuickAttack + HP Up Rules
-	{QuickAttack, HPUp, HPUp},
+	{QuickAttack, HPUp, QuickAttack},
 
 	// QuickAttack + MP Up Rules
-	{QuickAttack, MPUp, MPUp},
+	{QuickAttack, MPUp, QuickAttack},
 
 	// QuickAttack + AP Up Rules
-	{QuickAttack, APUp, APUp},
+	{QuickAttack, APUp, QuickAttack},
 
 	// QuickAttack + ATK Up Rules
-	{QuickAttack, ATKUp, ATKUp},
+	{QuickAttack, ATKUp, QuickAttack},
 
 	// QuickAttack + VIT Up Rules
-	{QuickAttack, VITUp, VITUp},
+	{QuickAttack, VITUp, QuickAttack},
 
 	// QuickAttack + MAG Up Rules
-	{QuickAttack, MAGUp, MAGUp},
+	{QuickAttack, MAGUp, QuickAttack},
 
 	// QuickAttack + SPR Up Rules
-	{QuickAttack, SPRUp, SPRUp},
+	{QuickAttack, SPRUp, QuickAttack},
 
 	// QuickAttack + SP Turbo Rules
-	{QuickAttack, SPTurbo, SPTurbo},
+	{QuickAttack, SPTurbo, QuickAttack},
 
 	// QuickAttack + Libra Rules
-	{QuickAttack, Libra, Libra},
+	{QuickAttack, Libra, QuickAttack},
 }
 
 var QuickAttackStatusBasicRules = []BasicCombinationRule{
@@ -1255,10 +1250,10 @@ var FITBladeBasicRules = []BasicCombinationRule{
 	{IceBlade, IceStatus, IceStatus},
 	{IceBlade, LightningStatus, LightningStatus},
 
-	// IceBlade + FITStatus Rules
-	{IceBlade, FireStatus, FireStatus},
-	{IceBlade, IceStatus, IceStatus},
-	{IceBlade, LightningStatus, LightningStatus},
+	// LightningBlade + FITStatus Rules
+	{LightningBlade, FireStatus, FireStatus},
+	{LightningBlade, IceStatus, IceStatus},
+	{LightningBlade, LightningStatus, LightningStatus},
 
 	// FITBlade + Gravity Rules are not basic
 
