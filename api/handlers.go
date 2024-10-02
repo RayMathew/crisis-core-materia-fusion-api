@@ -200,7 +200,7 @@ func updateResultantMateriaData(allMateria *[]ccmf.Materia, resultantMateriaGrad
 
 func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, materia1Type, materia2Type string, materia1Mastered, materia2Mastered bool, allMateria *[]ccmf.Materia) (resultantMateria ccmf.MateriaDTO) {
 	var resultantMateriaType string
-	// Complex Rule 1: FIT, Defense VERIFIED
+	// Complex Rule 1: FIL, Defense VERIFIED
 	if (materia1Type == string(ccmf.Fire) ||
 		materia1Type == string(ccmf.Ice) ||
 		materia1Type == string(ccmf.Lightning)) && materia2Type == string(ccmf.Defense) {
@@ -210,13 +210,13 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 			if materia1Mastered || materia2Mastered {
 				// final Grade is increased when output is Defense
 				increaseGrade(&resultantMateriaGrade)
-		}
+			}
 		} else {
-			// output is FIT when grades are NOT equal to 1
+			// output is FIL when grades are NOT equal to 1
 			resultantMateriaType = materia1Type
 		}
-		// Complex Rule 2: FIT, (Gravity, Item) VERIFIED
-		// If materia1 is any of FIT, and materia2 is any of Gravity, Item
+		// Complex Rule 2: FIL, (Gravity, Item) VERIFIED
+		// If materia1 is any of FIL, and materia2 is any of Gravity, Item
 	} else if (materia1Type == string(ccmf.Fire) ||
 		materia1Type == string(ccmf.Ice) ||
 		materia1Type == string(ccmf.Lightning)) &&
@@ -230,7 +230,7 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 				increaseGrade(&resultantMateriaGrade)
 			}
 		} else {
-			// output is FIT when grades are NOT equal
+			// output is FIL when grades are NOT equal
 			resultantMateriaType = materia1Type
 		}
 		// Complex Rule 10: Restore, Defense
