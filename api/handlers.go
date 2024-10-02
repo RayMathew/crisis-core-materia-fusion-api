@@ -243,10 +243,14 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.Restore)
 		}
-		// Complex Rule 11: Restore, Gravity
+		// Complex Rule 4: Restore, Gravity VERIFIED
 	} else if materia1Type == string(ccmf.Restore) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade == materia2Grade {
+		if materia1Grade == 3 && materia2Grade == 3 {
 			resultantMateriaType = string(ccmf.Gravity)
+			if materia1Mastered || materia2Mastered {
+				// final Grade is increased when output is Defense
+				increaseGrade(&resultantMateriaGrade)
+			}
 		} else {
 			resultantMateriaType = string(ccmf.Restore)
 		}
