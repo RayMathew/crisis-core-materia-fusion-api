@@ -243,22 +243,20 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.Restore)
 		}
-		// Complex Rule 4: Restore, Gravity VERIFIED
-	} else if materia1Type == string(ccmf.Restore) && materia2Type == string(ccmf.Gravity) {
+		// Complex Rule 4: Restore, (Gravity, Item) VERIFIED
+		// If materia1 is Restore, and materia2 is any of Gravity, Item
+	} else if materia1Type == string(ccmf.Restore) &&
+		(materia2Type == string(ccmf.Gravity) ||
+			materia2Type == string(ccmf.Item)) {
 		if materia1Grade == 3 && materia2Grade == 3 {
+			// output is Gravity / Item when grades are equal to 3
 			resultantMateriaType = string(ccmf.Gravity)
 			if materia1Mastered || materia2Mastered {
-				// final Grade is increased when output is Defense
+				// final Grade is increased when output is Gravity / Item
 				increaseGrade(&resultantMateriaGrade)
 			}
 		} else {
-			resultantMateriaType = string(ccmf.Restore)
-		}
-		// Complex Rule 12: Restore, Item
-	} else if materia1Type == string(ccmf.Restore) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade == 3 && materia2Grade == 3 {
-			resultantMateriaType = string(ccmf.Item)
-		} else {
+			// output is Restore when grades are NOT equal
 			resultantMateriaType = string(ccmf.Restore)
 		}
 		// Complex Rule 13: Defense, Status Magic !! How do we do this when it's mastered?
