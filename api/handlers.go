@@ -233,9 +233,12 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 			// output is FIL when grades are NOT equal
 			resultantMateriaType = materia1Type
 		}
-		// Complex Rule 10: Restore, Defense
-	} else if materia1Type == string(ccmf.Restore) && materia2Type == string(ccmf.Item) {
+		// Complex Rule 3: Restore, Defense VERIFIED
+	} else if materia1Type == string(ccmf.Restore) && materia2Type == string(ccmf.Defense) {
 		if (materia1Grade == 1 && materia2Grade == 1) || (materia1Grade == 4 && materia2Grade == 4) {
+			resultantMateriaType = string(ccmf.Defense)
+			increaseGrade(&resultantMateriaGrade)
+		} else if materia2Mastered {
 			resultantMateriaType = string(ccmf.Defense)
 		} else {
 			resultantMateriaType = string(ccmf.Restore)
