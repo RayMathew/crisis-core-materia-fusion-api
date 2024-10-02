@@ -121,7 +121,7 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 		app.logger.Info("none of the basic rules satisfy the requirement.")
 
 		//get final output using complex rules
-		resultantMateria = useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade, materia1Type, materia2Type, &allMateria)
+		resultantMateria = useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade, materia1Type, materia2Type, fusionReq.Materia1Mastered, fusionReq.Materia2Mastered, &allMateria)
 	} else {
 		//get final output using basic rules
 		// fmt.Println(materia1Grade, materia2Grade, materia1Type, materia2Type)
@@ -183,6 +183,10 @@ func determineGrade(req ccmf.MateriaFusionRequest, materia1Grade int) int {
 	return finalGrade
 }
 
+func increaseGrade(resultantMateriaGrade *int) {
+	*resultantMateriaGrade += 1
+}
+
 func updateResultantMateriaData(allMateria *[]ccmf.Materia, resultantMateriaGrade int, resultantMateriaType string, resultantMateria *ccmf.MateriaDTO) {
 	for _, materia := range *allMateria {
 		if materia.Grade == resultantMateriaGrade && materia.Type == string(resultantMateriaType) {
@@ -194,70 +198,40 @@ func updateResultantMateriaData(allMateria *[]ccmf.Materia, resultantMateriaGrad
 	}
 }
 
-func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, materia1Type, materia2Type string, allMateria *[]ccmf.Materia) (resultantMateria ccmf.MateriaDTO) {
+func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, materia1Type, materia2Type string, materia1Mastered, materia2Mastered bool, allMateria *[]ccmf.Materia) (resultantMateria ccmf.MateriaDTO) {
 	var resultantMateriaType string
-	// Complex Rule 1: Fire, Defense
-	if materia1Type == string(ccmf.Fire) && materia2Type == string(ccmf.Defense) {
+	// Complex Rule 1: FIT, Defense VERIFIED
+	if (materia1Type == string(ccmf.Fire) ||
+		materia1Type == string(ccmf.Ice) ||
+		materia1Type == string(ccmf.Lightning)) && materia2Type == string(ccmf.Defense) {
 		if materia1Grade == 1 && materia2Grade == 1 {
+			// output is Defense when grades are equal to 1
 			resultantMateriaType = string(ccmf.Defense)
-		} else {
-			resultantMateriaType = string(ccmf.Fire)
+			if materia1Mastered || materia2Mastered {
+				// final Grade is increased when output is Defense
+				increaseGrade(&resultantMateriaGrade)
 		}
-		// Complex Rule 2: Ice, Defense
-	} else if materia1Type == string(ccmf.Ice) && materia2Type == string(ccmf.Defense) {
-		if materia1Grade == 1 && materia2Grade == 1 {
-			resultantMateriaType = string(ccmf.Defense)
 		} else {
-			resultantMateriaType = string(ccmf.Ice)
+			// output is FIT when grades are NOT equal to 1
+			resultantMateriaType = materia1Type
 		}
-		// Complex Rule 3: Lightning, Defense
-	} else if materia1Type == string(ccmf.Lightning) && materia2Type == string(ccmf.Defense) {
-		if materia1Grade == 1 && materia2Grade == 1 {
-			resultantMateriaType = string(ccmf.Defense)
+		// Complex Rule 2: FIT, (Gravity, Item) VERIFIED
+		// If materia1 is any of FIT, and materia2 is any of Gravity, Item
+	} else if (materia1Type == string(ccmf.Fire) ||
+		materia1Type == string(ccmf.Ice) ||
+		materia1Type == string(ccmf.Lightning)) &&
+		(materia2Type == string(ccmf.Gravity) ||
+			materia2Type == string(ccmf.Item)) {
+		if materia1Grade == materia2Grade {
+			// output is Gravity / Item when grades are equal
+			resultantMateriaType = materia2Type
+			if materia1Mastered || materia2Mastered {
+				// final Grade is increased when output is Gravity / Item
+				increaseGrade(&resultantMateriaGrade)
+			}
 		} else {
-			resultantMateriaType = string(ccmf.Lightning)
-		}
-		// Complex Rule 4: Fire, Gravity
-	} else if materia1Type == string(ccmf.Fire) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade == 5 && materia2Grade == 5 {
-			resultantMateriaType = string(ccmf.Gravity)
-		} else {
-			resultantMateriaType = string(ccmf.Fire)
-		}
-		// Complex Rule 5: Ice, Gravity
-	} else if materia1Type == string(ccmf.Ice) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade == 5 && materia2Grade == 5 {
-			resultantMateriaType = string(ccmf.Gravity)
-		} else {
-			resultantMateriaType = string(ccmf.Ice)
-		}
-		// Complex Rule 6: Lightning, Gravity
-	} else if materia1Type == string(ccmf.Lightning) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade == 5 && materia2Grade == 5 {
-			resultantMateriaType = string(ccmf.Gravity)
-		} else {
-			resultantMateriaType = string(ccmf.Lightning)
-		}
-		// Complex Rule 7: Fire, Item
-	} else if materia1Type == string(ccmf.Fire) && materia2Type == string(ccmf.Item) {
-		if (materia1Grade == 3 && materia2Grade == 3) || (materia1Grade == 5 && materia2Grade == 5) {
-			resultantMateriaType = string(ccmf.Item)
-		} else {
-			resultantMateriaType = string(ccmf.Fire)
-		}
-		// Complex Rule 8: Ice, Item
-	} else if materia1Type == string(ccmf.Ice) && materia2Type == string(ccmf.Item) {
-		if (materia1Grade == 3 && materia2Grade == 3) || (materia1Grade == 5 && materia2Grade == 5) {
-			resultantMateriaType = string(ccmf.Item)
-		} else {
-			resultantMateriaType = string(ccmf.Ice)
-		}
-		// Complex Rule 9: Lightning, Item
-	} else if materia1Type == string(ccmf.Lightning) && materia2Type == string(ccmf.Item) {
-		if (materia1Grade == 3 && materia2Grade == 3) || (materia1Grade == 5 && materia2Grade == 5) {
-			resultantMateriaType = string(ccmf.Item)
-		} else {
-			resultantMateriaType = string(ccmf.Lightning)
+			// output is FIT when grades are NOT equal
+			resultantMateriaType = materia1Type
 		}
 		// Complex Rule 10: Restore, Defense
 	} else if materia1Type == string(ccmf.Restore) && materia2Type == string(ccmf.Item) {
