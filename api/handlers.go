@@ -259,34 +259,32 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 			// output is Restore when grades are NOT equal
 			resultantMateriaType = string(ccmf.Restore)
 		}
-		// Complex Rule 13: Defense, Status Magic !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.StatusMagic) {
-		if materia1Grade == 1 && materia2Grade == 1 {
-			resultantMateriaType = string(ccmf.StatusDefense)
+		// Complex Rule 5: Defense, (Status Magic, FIL Status, Blade Arts Status, Quick Attack Status) VERIFIED
+		// If materia1 is Defense, and materia2 is any of Status Magic, FIL Status, Blade Arts Status, Quick Attack Status
+	} else if materia1Type == string(ccmf.Defense) &&
+		(materia2Type == string(ccmf.StatusMagic) ||
+			materia2Type == string(ccmf.FireStatus) ||
+			materia2Type == string(ccmf.IceStatus) ||
+			materia2Type == string(ccmf.LightningStatus) ||
+			materia2Type == string(ccmf.BladeArtsStatus) ||
+			materia2Type == string(ccmf.QuickAttackStatus)) {
+		// output is always Status Defense
+		resultantMateriaType = string(ccmf.StatusDefense)
+		// final Grade of Status Defense is increased if input grade of materia1 is 1 or 4
+		if materia1Grade == 1 || materia1Grade == 4 {
+			increaseGrade(&resultantMateriaGrade)
 		}
-		// Complex Rule 14: Defense, Fire Status !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.FireStatus) {
-
-		// Complex Rule 15: Defense, Ice Status !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.IceStatus) {
-
-		// Complex Rule 16: Defense, Lightning Status !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.LightningStatus) {
-
-		// Complex Rule 17: Defense, Gravity
+		// Complex Rule 6: Defense, Gravity VERIFIED
 	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade >= materia2Grade {
-			resultantMateriaType = string(ccmf.Defense)
-		} else {
+		if materia1Grade == 3 && materia2Grade == 3 {
 			resultantMateriaType = string(ccmf.Gravity)
+			increaseGrade(&resultantMateriaGrade)
+		} else if materia1Grade == 7 && materia2Grade == 7 && materia2Mastered {
+			resultantMateriaType = string(ccmf.Gravity)
+		} else {
+			resultantMateriaType = string(ccmf.Defense)
 		}
-		// Complex Rule 18: Defense, Quick Attack Status !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.QuickAttackStatus) {
-
-		// Complex Rule 19: Defense, Blade Arts Status  !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.BladeArtsStatus) {
-
-		// Complex Rule 20: Defense, Item
+		// Complex Rule 7: Defense, Item VERIFIED
 	} else if materia1Type == string(ccmf.Defense) && materia2Type == string(ccmf.Item) {
 		if materia1Grade == 7 && materia2Grade == 7 {
 			resultantMateriaType = string(ccmf.Item)
