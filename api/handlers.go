@@ -312,12 +312,17 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		(materia2Type == string(ccmf.ATKUp) || materia2Type == string(ccmf.VITUp)) {
 		resultantMateriaType = string(ccmf.AbsorbBlade)
 		increaseGrade(&resultantMateriaGrade)
-		// Complex Rule 22: Status Magic, Defense  !! How do we do this when it's mastered?
+		// Complex Rule 11: Status Magic, Defense VERIFIED
 	} else if materia1Type == string(ccmf.StatusMagic) && materia2Type == string(ccmf.Defense) {
-
-		// Complex Rule 23: Status Magic, Item
+		if (materia1Grade == 1 && materia2Grade == 1) || (materia1Grade == 4 && materia2Grade == 4) {
+			resultantMateriaType = string(ccmf.StatusDefense)
+			increaseGrade(&resultantMateriaGrade)
+		} else {
+			resultantMateriaType = string(ccmf.StatusMagic)
+		}
+		// Complex Rule 12: Status Magic, Item VERIFIED
 	} else if materia1Type == string(ccmf.StatusMagic) && materia2Type == string(ccmf.Item) {
-		if materia1Grade == 5 && materia2Grade == 5 {
+		if materia1Grade == materia2Grade || materia2Mastered {
 			resultantMateriaType = string(ccmf.Item)
 		} else {
 			resultantMateriaType = string(ccmf.StatusMagic)
