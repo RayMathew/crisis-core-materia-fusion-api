@@ -291,22 +291,27 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.Defense)
 		}
-		// Complex Rule 21: Absorb Magic, Gravity  !! How do we do this when it's mastered?
+		// Complex Rule 8: Absorb Magic, Gravity VERIFIED
 	} else if materia1Type == string(ccmf.AbsorbMagic) && materia2Type == string(ccmf.Gravity) {
-
-		// Complex Rule 22: Absorb Magic, Item
+		resultantMateriaType = string(ccmf.AbsorbMagic)
+		if materia1Grade == 3 && materia2Grade == 3 || materia1Grade == 5 && materia2Grade == 5 {
+			increaseGrade(&resultantMateriaGrade)
+		}
+		// Complex Rule 9: Absorb Magic, Item VERIFIED
 	} else if materia1Type == string(ccmf.AbsorbMagic) && materia2Type == string(ccmf.Item) {
 		if materia1Grade == materia2Grade {
 			resultantMateriaType = string(ccmf.Item)
+			if materia1Mastered || materia2Mastered {
+				increaseGrade(&resultantMateriaGrade)
+			}
 		} else {
 			resultantMateriaType = string(ccmf.AbsorbMagic)
 		}
-		// Complex Rule 21: Absorb Magic, ATKUp  !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.AbsorbMagic) && materia2Type == string(ccmf.ATKUp) {
-
-		// Complex Rule 21: Absorb Magic, VITUp  !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.AbsorbMagic) && materia2Type == string(ccmf.VITUp) {
-
+		// Complex Rule 10: Absorb Magic, (ATKUp, VIT Up) VERIFIED
+	} else if materia1Type == string(ccmf.AbsorbMagic) &&
+		(materia2Type == string(ccmf.ATKUp) || materia2Type == string(ccmf.VITUp)) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade(&resultantMateriaGrade)
 		// Complex Rule 22: Status Magic, Defense  !! How do we do this when it's mastered?
 	} else if materia1Type == string(ccmf.StatusMagic) && materia2Type == string(ccmf.Defense) {
 
