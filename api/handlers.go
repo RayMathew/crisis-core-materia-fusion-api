@@ -515,7 +515,7 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		if materia1Grade < 6 {
 			increaseGrade(&resultantMateriaGrade)
 		}
-		// Complex Rule 60: Blade Arts, Item VERIFIED
+		// Complex Rule 36: Blade Arts, Item VERIFIED
 	} else if materia1Type == string(ccmf.BladeArts) && materia2Type == string(ccmf.Item) {
 		if (materia1Grade == 5 && materia2Grade == 5) || (materia1Grade == 3 && materia2Grade == 3) {
 			resultantMateriaType = string(ccmf.Item)
@@ -523,19 +523,25 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.BladeArts)
 		}
-		// Complex Rule 61: Blade Arts Status, Defense !! How do we do this when it's mastered?
+		// Complex Rule 37: Blade Arts Status, Defense VERIFIED
 	} else if materia1Type == string(ccmf.BladeArtsStatus) && materia2Type == string(ccmf.Defense) {
-
-		// Complex Rule 62: Blade Arts Status, Absorb Magic  !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.BladeArtsStatus) && materia2Type == string(ccmf.AbsorbMagic) {
-
-		// Complex Rule 63: Blade Arts Status, Absorb Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.BladeArtsStatus) && materia2Type == string(ccmf.AbsorbBlade) {
-
-		// Complex Rule 64: Blade Arts Status, Item
+		if (materia1Grade == 1 && materia2Grade == 1) || (materia1Grade == 4 && materia2Grade == 4) {
+			resultantMateriaType = string(ccmf.StatusDefense)
+			increaseGrade(&resultantMateriaGrade)
+		} else {
+			resultantMateriaType = string(ccmf.BladeArtsStatus)
+		}
+		// Complex Rule 38: Blade Arts Status, (Absorb Magic, Absorb Blade) VERIFIED
+	} else if materia1Type == string(ccmf.BladeArtsStatus) &&
+		(materia2Type == string(ccmf.AbsorbMagic) ||
+			materia2Type == string(ccmf.AbsorbBlade)) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade(&resultantMateriaGrade)
+		// Complex Rule 64: Blade Arts Status, Item VERIFIED
 	} else if materia1Type == string(ccmf.BladeArtsStatus) && materia2Type == string(ccmf.Item) {
 		if (materia1Grade == 7 && materia2Grade == 7) || (materia1Grade == 5 && materia2Grade == 5) {
 			resultantMateriaType = string(ccmf.Item)
+			increaseGrade(&resultantMateriaGrade)
 		} else {
 			resultantMateriaType = string(ccmf.BladeArtsStatus)
 		}
