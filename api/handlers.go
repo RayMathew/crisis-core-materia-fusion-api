@@ -184,7 +184,9 @@ func determineGrade(req ccmf.MateriaFusionRequest, materia1Grade int) int {
 }
 
 func increaseGrade(resultantMateriaGrade *int) {
-	*resultantMateriaGrade += 1
+	if *resultantMateriaGrade != 8 {
+		*resultantMateriaGrade += 1
+	}
 }
 
 func updateResultantMateriaData(allMateria *[]ccmf.Materia, resultantMateriaGrade int, resultantMateriaType string, resultantMateria *ccmf.MateriaDTO) {
@@ -451,12 +453,12 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = materia2Type
 		}
-		// Complex Rule 27: QuickAttack, Absorb Blade  VERIFIED
+		// Complex Rule 27: QuickAttack, Absorb Blade VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.AbsorbBlade) {
 		resultantMateriaType = string(ccmf.AbsorbBlade)
 		increaseGrade(&resultantMateriaGrade)
 
-		// Complex Rule 51: QuickAttack, Item VERIFIED
+		// Complex Rule 28: QuickAttack, Item VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.Item) {
 		if materia1Grade == materia2Grade {
 			resultantMateriaType = string(ccmf.Item)
@@ -464,26 +466,33 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.QuickAttack)
 		}
-		// Complex Rule 52: QuickAttackStatus, Defense !! How do we do this when it's mastered?
+		// Complex Rule 29: QuickAttackStatus, Defense VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttackStatus) && materia2Type == string(ccmf.Defense) {
+		if materia1Grade == 4 && materia2Grade == 4 {
+			resultantMateriaType = string(ccmf.StatusDefense)
+		} else {
+			resultantMateriaType = string(ccmf.QuickAttackStatus)
+		}
 
-		// Complex Rule 53: QuickAttackStatus, Absorb Magic !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.QuickAttackStatus) && materia2Type == string(ccmf.AbsorbMagic) {
+		// Complex Rule 30: QuickAttackStatus, (Absorb Magic, Absorb Blade) VERIFIED
+	} else if materia1Type == string(ccmf.QuickAttackStatus) &&
+		(materia2Type == string(ccmf.AbsorbMagic) ||
+			materia2Type == string(ccmf.AbsorbBlade)) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade(&resultantMateriaGrade)
 
-		// Complex Rule 54: QuickAttackStatus, Gravity
+		// Complex Rule 31: QuickAttackStatus, Gravity VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttackStatus) && materia2Type == string(ccmf.Gravity) {
 		if (materia1Grade == 5 && materia2Grade == 5) || (materia1Grade == 3 && materia2Grade == 3) {
 			resultantMateriaType = string(ccmf.Gravity)
 		} else {
 			resultantMateriaType = string(ccmf.QuickAttackStatus)
 		}
-		// Complex Rule 55: QuickAttackStatus, Absorb Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.QuickAttackStatus) && materia2Type == string(ccmf.AbsorbBlade) {
-
-		// Complex Rule 56: QuickAttackStatus, Item
+		// Complex Rule 32: QuickAttackStatus, Item VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttackStatus) && materia2Type == string(ccmf.Item) {
 		if (materia1Grade == 7 && materia2Grade == 7) || (materia1Grade == 5 && materia2Grade == 5) || (materia1Grade == 3 && materia2Grade == 3) {
 			resultantMateriaType = string(ccmf.Item)
+			increaseGrade(&resultantMateriaGrade)
 		} else {
 			resultantMateriaType = string(ccmf.QuickAttackStatus)
 		}
