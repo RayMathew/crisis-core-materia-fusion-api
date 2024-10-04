@@ -362,51 +362,63 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = materia1Type
 		}
-		// Complex Rule 33: Gravity, Absorb Magic !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.AbsorbMagic) {
+		// Complex Rule 16: Gravity, (Absorb Magic, Status Magic) VERIFIED
+	} else if materia1Type == string(ccmf.Gravity) &&
+		(materia2Type == string(ccmf.AbsorbMagic) ||
+			materia2Type == string(ccmf.StatusMagic)) {
+		resultantMateriaType = materia2Type
+		if materia1Grade == 3 || materia1Grade == 5 {
+			increaseGrade(&resultantMateriaGrade)
+		}
+		// Complex Rule 17: Gravity, (Quick Attack, Blade Arts, FIL Blade) VERIFIED
+	} else if materia1Type == string(ccmf.Gravity) &&
+		(materia2Type == string(ccmf.QuickAttack) ||
+			materia2Type == string(ccmf.BladeArts) ||
+			materia2Type == string(ccmf.FireBlade) ||
+			materia2Type == string(ccmf.IceBlade) ||
+			materia2Type == string(ccmf.LightningBlade)) {
+		resultantMateriaType = materia2Type
+		if materia1Grade == 5 || materia1Mastered || materia2Mastered {
+			increaseGrade(&resultantMateriaGrade)
+		}
 
-		// Complex Rule 34: Gravity, Status Magic !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.StatusMagic) {
-
-		// Complex Rule 34: Gravity, Quick Attack !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.QuickAttack) {
-
-		// Complex Rule 35: Gravity, Blade Arts !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.BladeArts) {
-
-		// Complex Rule 35: Gravity, Fire Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.FireBlade) {
-
-		// Complex Rule 36: Gravity, Ice Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.IceBlade) {
-
-		// Complex Rule 37: Gravity, Lightning Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.LightningBlade) {
-
-		// Complex Rule 38: Gravity, Absorb Blade !! How do we do this when it's mastered?
+		// Complex Rule 18: Gravity, Absorb Blade VERIFIED
 	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.AbsorbBlade) {
-
-		// Complex Rule 39: Gravity, Item
+		resultantMateriaType = string(ccmf.AbsorbMagic)
+		if materia1Grade == 3 || materia1Grade == 5 || materia1Mastered || materia2Mastered {
+			increaseGrade(&resultantMateriaGrade)
+		}
+		// Complex Rule 19: Gravity, Item VERIFIED
 	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.Item) {
-		if materia1Grade == 7 && materia2Grade == 7 {
+		if (materia1Grade == 7 && materia2Grade == 7) || (materia1Grade == 3 && materia2Grade == 3 && materia2Mastered) {
+			increaseGrade(&resultantMateriaGrade)
 			resultantMateriaType = string(ccmf.Item)
 		} else {
 			resultantMateriaType = string(ccmf.Gravity)
 		}
-		// Complex Rule 40: Gravity, HP Up !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.HPUp) {
+		if materia1Grade == 3 && materia1Mastered {
+			increaseGrade(&resultantMateriaGrade)
+		}
+		// Complex Rule 20: Gravity, (HP Up, VIT Up, SPR Up) VERIFIED
+	} else if materia1Type == string(ccmf.Gravity) &&
+		(materia2Type == string(ccmf.HPUp) ||
+			materia2Type == string(ccmf.VITUp) ||
+			materia2Type == string(ccmf.SPRUp)) {
+		resultantMateriaType = string(ccmf.Defense)
+		if materia1Grade == 3 || materia1Mastered || materia2Mastered {
+			increaseGrade(&resultantMateriaGrade)
+		}
 
-		// Complex Rule 41: Gravity, ATK Up !! How do we do this when it's mastered?
+		// Complex Rule 21: Gravity, ATK Up VERIFIED
 	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.ATKUp) {
-
-		// Complex Rule 41: Gravity, VIT Up !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.VITUp) {
-
-		// Complex Rule 42: Gravity, SPR Up !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.SPRUp) {
-
-		// Complex Rule 43: Ultimate, Absorb Blade !! How do we do this when it's mastered?
+		resultantMateriaType = string(ccmf.BladeArts)
+		if materia1Grade == 5 || materia1Mastered || materia2Mastered {
+			increaseGrade(&resultantMateriaGrade)
+		}
+		// Complex Rule 22: Ultimate, Absorb Blade VERIFIED
 	} else if materia1Type == string(ccmf.Ultimate) && materia2Type == string(ccmf.AbsorbBlade) {
+		resultantMateriaType = string(ccmf.BladeArts)
+		increaseGrade(&resultantMateriaGrade)
 
 		// Complex Rule 44: QuickAttack, Defense
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.Defense) {
