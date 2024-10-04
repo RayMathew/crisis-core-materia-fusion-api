@@ -327,62 +327,40 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.StatusMagic)
 		}
-		// Complex Rule 24: Fire Status, Defense  !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.FireStatus) && materia2Type == string(ccmf.Defense) {
-
-		// Complex Rule 25: Ice Status, Defense  !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.IceStatus) && materia2Type == string(ccmf.Defense) {
-
-		// Complex Rule 26: Lightning Status, Defense  !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.LightningStatus) && materia2Type == string(ccmf.Defense) {
-
-		// Complex Rule 27: Fire Status, Gravity
-	} else if materia1Type == string(ccmf.FireStatus) && materia2Type == string(ccmf.Gravity) {
+		// Complex Rule 13: FIL Status, Defense VERIFIED
+	} else if (materia1Type == string(ccmf.FireStatus) ||
+		materia1Type == string(ccmf.IceStatus) ||
+		materia1Type == string(ccmf.LightningStatus)) &&
+		materia2Type == string(ccmf.Defense) {
+		if materia1Grade == 1 && materia2Grade == 1 {
+			resultantMateriaType = string(ccmf.StatusDefense)
+			increaseGrade(&resultantMateriaGrade)
+		} else {
+			resultantMateriaType = materia1Type
+		}
+		// Complex Rule 14: FIL Status, Gravity VERIFIED
+	} else if (materia1Type == string(ccmf.FireStatus) ||
+		materia1Type == string(ccmf.IceStatus) ||
+		materia1Type == string(ccmf.LightningStatus)) &&
+		materia2Type == string(ccmf.Gravity) {
 		if materia1Grade == 7 && materia2Grade == 7 {
-			resultantMateriaType = string(ccmf.FireStatus)
+			resultantMateriaType = materia1Type
 		} else if materia1Grade == materia2Grade {
 			resultantMateriaType = string(ccmf.Gravity)
+			increaseGrade(&resultantMateriaGrade)
 		} else {
-			resultantMateriaType = string(ccmf.FireStatus)
+			resultantMateriaType = materia1Type
 		}
-		// Complex Rule 28: Ice Status, Gravity
-	} else if materia1Type == string(ccmf.IceStatus) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade == 7 && materia2Grade == 7 {
-			resultantMateriaType = string(ccmf.IceStatus)
-		} else if materia1Grade == materia2Grade {
-			resultantMateriaType = string(ccmf.Gravity)
-		} else {
-			resultantMateriaType = string(ccmf.IceStatus)
-		}
-		// Complex Rule 29: Lightning Status, Gravity
-	} else if materia1Type == string(ccmf.LightningStatus) && materia2Type == string(ccmf.Gravity) {
-		if materia1Grade == 7 && materia2Grade == 7 {
-			resultantMateriaType = string(ccmf.LightningStatus)
-		} else if materia1Grade == materia2Grade {
-			resultantMateriaType = string(ccmf.Gravity)
-		} else {
-			resultantMateriaType = string(ccmf.LightningStatus)
-		}
-		// Complex Rule 30: Fire Status, Item
-	} else if materia1Type == string(ccmf.FireStatus) && materia2Type == string(ccmf.Item) {
+		// Complex Rule 15: FIL Status, Item VERIFIED
+	} else if (materia1Type == string(ccmf.FireStatus) ||
+		materia1Type == string(ccmf.IceStatus) ||
+		materia1Type == string(ccmf.LightningStatus)) &&
+		materia2Type == string(ccmf.Item) {
 		if materia1Grade == materia2Grade {
 			resultantMateriaType = string(ccmf.Item)
+			increaseGrade(&resultantMateriaGrade)
 		} else {
-			resultantMateriaType = string(ccmf.FireStatus)
-		}
-		// Complex Rule 31: Ice Status, Item
-	} else if materia1Type == string(ccmf.IceStatus) && materia2Type == string(ccmf.Item) {
-		if materia1Grade == materia2Grade {
-			resultantMateriaType = string(ccmf.Item)
-		} else {
-			resultantMateriaType = string(ccmf.IceStatus)
-		}
-		// Complex Rule 32: Lightning Status, Item
-	} else if materia1Type == string(ccmf.LightningStatus) && materia2Type == string(ccmf.Item) {
-		if materia1Grade == materia2Grade {
-			resultantMateriaType = string(ccmf.Item)
-		} else {
-			resultantMateriaType = string(ccmf.LightningStatus)
+			resultantMateriaType = materia1Type
 		}
 		// Complex Rule 33: Gravity, Absorb Magic !! How do we do this when it's mastered?
 	} else if materia1Type == string(ccmf.Gravity) && materia2Type == string(ccmf.AbsorbMagic) {
