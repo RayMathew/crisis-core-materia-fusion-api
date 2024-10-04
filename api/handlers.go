@@ -420,35 +420,47 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		resultantMateriaType = string(ccmf.BladeArts)
 		increaseGrade(&resultantMateriaGrade)
 
-		// Complex Rule 44: QuickAttack, Defense
+		// Complex Rule 23: QuickAttack, Defense VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.Defense) {
-		if materia1Grade == 1 && materia2Grade == 1 {
+		if (materia1Grade == 1 && materia2Grade == 1) || (materia1Grade == materia2Grade && materia2Mastered) {
 			resultantMateriaType = string(ccmf.Defense)
 		} else {
 			resultantMateriaType = string(ccmf.QuickAttack)
 		}
-		// Complex Rule 45: QuickAttack, Absorb Magic !! How do we do this when it's mastered?
+		// Complex Rule 24: QuickAttack, Absorb Magic VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.AbsorbMagic) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade(&resultantMateriaGrade)
 
-		// Complex Rule 46: QuickAttack, Gravity !! How do we do this when it's mastered?
+		// Complex Rule 25: QuickAttack, Gravity VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.Gravity) {
+		if (materia1Grade == 3 && materia2Grade == 3) || materia1Grade == 5 && materia2Grade == 5 {
+			resultantMateriaType = string(ccmf.BladeArts)
+			increaseGrade(&resultantMateriaGrade)
+		} else {
+			resultantMateriaType = string(ccmf.QuickAttack)
+		}
 
-		// Complex Rule 47: QuickAttack, Fire Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.FireBlade) {
-
-		// Complex Rule 48: QuickAttack, Ice Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.IceBlade) {
-
-		// Complex Rule 49: QuickAttack, Lightning Blade !! How do we do this when it's mastered?
-	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.LightningBlade) {
-
-		// Complex Rule 50: QuickAttack, Absorb Blade !! How do we do this when it's mastered?
+		// Complex Rule 26: QuickAttack, FIL Blade VERIFIED
+	} else if materia1Type == string(ccmf.QuickAttack) &&
+		(materia2Type == string(ccmf.FireBlade) ||
+			materia2Type == string(ccmf.IceBlade) ||
+			materia2Type == string(ccmf.LightningBlade)) {
+		if materia1Grade == 7 && materia2Grade == 7 {
+			resultantMateriaType = string(ccmf.QuickAttack)
+		} else {
+			resultantMateriaType = materia2Type
+		}
+		// Complex Rule 27: QuickAttack, Absorb Blade  VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.AbsorbBlade) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade(&resultantMateriaGrade)
 
-		// Complex Rule 51: QuickAttack, Item
+		// Complex Rule 51: QuickAttack, Item VERIFIED
 	} else if materia1Type == string(ccmf.QuickAttack) && materia2Type == string(ccmf.Item) {
 		if materia1Grade == materia2Grade {
 			resultantMateriaType = string(ccmf.Item)
+			increaseGrade(&resultantMateriaGrade)
 		} else {
 			resultantMateriaType = string(ccmf.QuickAttack)
 		}
