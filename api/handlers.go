@@ -496,23 +496,30 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.QuickAttackStatus)
 		}
-		// Complex Rule 57: Blade Arts, Defense
+		// Complex Rule 33: Blade Arts, Defense VERIFIED
 	} else if materia1Type == string(ccmf.BladeArts) && materia2Type == string(ccmf.Defense) {
 		if materia1Grade == 1 && materia2Grade == 1 {
 			resultantMateriaType = string(ccmf.Defense)
+			increaseGrade(&resultantMateriaGrade)
 		} else {
 			resultantMateriaType = string(ccmf.BladeArts)
 		}
-		// Complex Rule 58: Blade Arts, Absorb Magic  !! How do we do this when it's mastered?
+		// Complex Rule 34: Blade Arts, Absorb Magic VERIFIED
 	} else if materia1Type == string(ccmf.BladeArts) && materia2Type == string(ccmf.AbsorbMagic) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade(&resultantMateriaGrade)
 
-		// Complex Rule 59: Blade Arts, Absorb Blade  !! How do we do this when it's mastered?
+		// Complex Rule 35: Blade Arts, Absorb Blade VERIFIED
 	} else if materia1Type == string(ccmf.BladeArts) && materia2Type == string(ccmf.AbsorbBlade) {
-
-		// Complex Rule 60: Blade Arts, Item
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		if materia1Grade < 6 {
+			increaseGrade(&resultantMateriaGrade)
+		}
+		// Complex Rule 60: Blade Arts, Item VERIFIED
 	} else if materia1Type == string(ccmf.BladeArts) && materia2Type == string(ccmf.Item) {
 		if (materia1Grade == 5 && materia2Grade == 5) || (materia1Grade == 3 && materia2Grade == 3) {
 			resultantMateriaType = string(ccmf.Item)
+			increaseGrade(&resultantMateriaGrade)
 		} else {
 			resultantMateriaType = string(ccmf.BladeArts)
 		}
