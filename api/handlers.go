@@ -670,32 +670,76 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		} else {
 			resultantMateriaType = string(ccmf.LightningStatus)
 		}
-		// Complex Rule 86: Absorb Blade, !! too many not fitting
-	} else if materia1Type == string(ccmf.AbsorbBlade) && materia2Type == string(ccmf.Fire) {
+		// Complex Rule 50: Absorb Blade, (FIL, Restore, Defense, Status Defense, Status Magic, FIL Status, Ultimate, Quick Attack, Quick Attack Status, Blade Arts, Blade Arts Status, FIL Blade, HP, MP, AP, ATK, VIT, SP Turbo, Libra) VERIFIED
+	} else if materia1Type == string(ccmf.AbsorbBlade) &&
+		(materia2Type == string(ccmf.Fire) ||
+			materia2Type == string(ccmf.Ice) ||
+			materia2Type == string(ccmf.Lightning) ||
+			materia2Type == string(ccmf.Restore) ||
+			materia2Type == string(ccmf.Defense) ||
+			materia2Type == string(ccmf.StatusDefense) ||
+			materia2Type == string(ccmf.StatusMagic) ||
+			materia2Type == string(ccmf.FireStatus) ||
+			materia2Type == string(ccmf.IceStatus) ||
+			materia2Type == string(ccmf.LightningStatus) ||
+			materia2Type == string(ccmf.Ultimate) ||
+			materia2Type == string(ccmf.QuickAttack) ||
+			materia2Type == string(ccmf.QuickAttackStatus) ||
+			materia2Type == string(ccmf.BladeArts) ||
+			materia2Type == string(ccmf.BladeArtsStatus) ||
+			materia2Type == string(ccmf.FireBlade) ||
+			materia2Type == string(ccmf.IceBlade) ||
+			materia2Type == string(ccmf.LightningBlade) ||
+			materia2Type == string(ccmf.Punch) ||
+			materia2Type == string(ccmf.HPUp) ||
+			materia2Type == string(ccmf.MPUp) ||
+			materia2Type == string(ccmf.APUp) ||
+			materia2Type == string(ccmf.ATKUp) ||
+			materia2Type == string(ccmf.VITUp) ||
+			materia2Type == string(ccmf.SPTurbo) ||
+			materia2Type == string(ccmf.Libra)) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade((&resultantMateriaGrade))
 
-		// Complex Rule 86: Punch, Fire Blade
-	} else if materia1Type == string(ccmf.Punch) && materia2Type == string(ccmf.FireBlade) {
-		if materia1Grade == 7 && materia2Grade == 7 {
-			resultantMateriaType = string(ccmf.BladeArts) //no, this is not a mistake
-		} else {
-			resultantMateriaType = string(ccmf.FireBlade)
+		// Complex Rule 51: Absorb Blade, Gravity VERIFIED
+	} else if materia1Type == string(ccmf.AbsorbBlade) &&
+		materia2Type == string(ccmf.Gravity) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade((&resultantMateriaGrade))
+		if (materia1Grade == 3 && materia2Grade == 3) || (materia1Grade == 5 && materia2Grade == 5) {
+			resultantMateriaType = string(ccmf.AbsorbMagic)
 		}
-		// Complex Rule 86: Punch, Ice Blade
-	} else if materia1Type == string(ccmf.Punch) && materia2Type == string(ccmf.IceBlade) {
-		if materia1Grade == 7 && materia2Grade == 7 {
-			resultantMateriaType = string(ccmf.BladeArts) //no, this is not a mistake
-		} else {
-			resultantMateriaType = string(ccmf.IceBlade)
+		// Complex Rule 52: Absorb Blade, Item VERIFIED
+	} else if materia1Type == string(ccmf.AbsorbBlade) &&
+		materia2Type == string(ccmf.Item) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade((&resultantMateriaGrade))
+		if (materia1Grade == 3 && materia2Grade == 3) || (materia1Grade == 5 && materia2Grade == 5) {
+			resultantMateriaType = string(ccmf.Item)
 		}
-		// Complex Rule 86: Punch, Lightning Blade
-	} else if materia1Type == string(ccmf.Punch) && materia2Type == string(ccmf.LightningBlade) {
-		if materia1Grade == 7 && materia2Grade == 7 {
-			resultantMateriaType = string(ccmf.BladeArts) //no, this is not a mistake
-		} else {
-			resultantMateriaType = string(ccmf.LightningBlade)
+		// Complex Rule 53: Absorb Blade, (MAG UP, SPR UP) VERIFIED
+	} else if materia1Type == string(ccmf.AbsorbBlade) &&
+		(materia2Type == string(ccmf.MAGUp) ||
+			materia2Type == string(ccmf.SPRUp)) {
+		resultantMateriaType = string(ccmf.AbsorbMagic)
+		if materia1Type == materia2Type && materia2Mastered {
+			resultantMateriaType = materia2Type
 		}
-		// Complex Rule 77: Punch, Absorb Blade !! How do we do this when it's mastered?
+
+		// Complex Rule 54: Punch, FIL Blade VERIFIED
+	} else if materia1Type == string(ccmf.Punch) &&
+		(materia2Type == string(ccmf.FireBlade) ||
+			materia2Type == string(ccmf.IceBlade) ||
+			materia2Type == string(ccmf.LightningBlade)) {
+		if materia1Grade == 7 && materia2Grade == 7 {
+			resultantMateriaType = string(ccmf.BladeArts)
+		} else {
+			resultantMateriaType = materia2Type
+		}
+		// Complex Rule 55: Punch, Absorb Blade VERIFIED
 	} else if materia1Type == string(ccmf.Punch) && materia2Type == string(ccmf.AbsorbBlade) {
+		resultantMateriaType = string(ccmf.AbsorbBlade)
+		increaseGrade((&resultantMateriaGrade))
 
 		// Complex Rule 78: (HP Up, MP Up, AP Up, ATK Up, VIT Up, MAG Up, SPR Up), Defense
 	} else if (materia1Grade == 7 && materia2Grade == 7) &&
