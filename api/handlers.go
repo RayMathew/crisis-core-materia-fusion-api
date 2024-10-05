@@ -741,138 +741,90 @@ func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, ma
 		resultantMateriaType = string(ccmf.AbsorbBlade)
 		increaseGrade((&resultantMateriaGrade))
 
-		// Complex Rule 78: (HP Up, MP Up, AP Up, ATK Up, VIT Up, MAG Up, SPR Up), Defense
-	} else if (materia1Grade == 7 && materia2Grade == 7) &&
-		(materia1Type == string(ccmf.HPUp) && materia2Type == string(ccmf.Defense)) ||
-		(materia1Type == string(ccmf.MPUp) && materia2Type == string(ccmf.Defense)) ||
-		(materia1Type == string(ccmf.APUp) && materia2Type == string(ccmf.Defense)) ||
-		(materia1Type == string(ccmf.ATKUp) && materia2Type == string(ccmf.Defense)) ||
-		(materia1Type == string(ccmf.VITUp) && materia2Type == string(ccmf.Defense)) ||
-		(materia1Type == string(ccmf.MAGUp) && materia2Type == string(ccmf.Defense)) ||
-		(materia1Type == string(ccmf.SPRUp) && materia2Type == string(ccmf.Defense)) {
-		resultantMateriaType = string(ccmf.Defense)
-
-		// Complex Rule 78: HP Up, Defense
-	} else if materia1Type == string(ccmf.HPUp) && materia2Type == string(ccmf.Defense) {
-		resultantMateriaType = string(ccmf.HPUp)
-
-		// Complex Rule 78: MP Up, Defense
-	} else if materia1Type == string(ccmf.MPUp) && materia2Type == string(ccmf.Defense) {
-		resultantMateriaType = string(ccmf.MPUp)
-
-		// Complex Rule 78: AP Up, Defense
-	} else if materia1Type == string(ccmf.APUp) && materia2Type == string(ccmf.Defense) {
-		resultantMateriaType = string(ccmf.APUp)
-
-		// Complex Rule 78: ATK Up, Defense
-	} else if materia1Type == string(ccmf.ATKUp) && materia2Type == string(ccmf.Defense) {
-		resultantMateriaType = string(ccmf.ATKUp)
-
-		// Complex Rule 78: VIT Up, Defense
-	} else if materia1Type == string(ccmf.VITUp) && materia2Type == string(ccmf.Defense) {
-		resultantMateriaType = string(ccmf.VITUp)
-
-		// Complex Rule 78: MAG Up, Defense
-	} else if materia1Type == string(ccmf.MAGUp) && materia2Type == string(ccmf.Defense) {
-		resultantMateriaType = string(ccmf.MAGUp)
-
-		// Complex Rule 78: SPR Up, Defense
-	} else if materia1Type == string(ccmf.SPRUp) && materia2Type == string(ccmf.Defense) {
-		resultantMateriaType = string(ccmf.SPRUp)
-
-		// Complex Rule 78: (HP Up, MP Up, AP Up, ATK Up, VIT Up, MAG Up, SPR Up), Gravity
-	} else if (materia1Grade == materia2Grade) &&
-		(materia1Type == string(ccmf.HPUp) && materia2Type == string(ccmf.Gravity)) ||
-		(materia1Type == string(ccmf.MPUp) && materia2Type == string(ccmf.Gravity)) ||
-		(materia1Type == string(ccmf.APUp) && materia2Type == string(ccmf.Gravity)) ||
-		(materia1Type == string(ccmf.ATKUp) && materia2Type == string(ccmf.Gravity)) ||
-		(materia1Type == string(ccmf.VITUp) && materia2Type == string(ccmf.Gravity)) ||
-		(materia1Type == string(ccmf.MAGUp) && materia2Type == string(ccmf.Gravity)) ||
-		(materia1Type == string(ccmf.SPRUp) && materia2Type == string(ccmf.Gravity)) {
-		resultantMateriaType = string(ccmf.Gravity)
-
-		// Complex Rule 78: HP Up, Gravity
-	} else if materia1Type == string(ccmf.HPUp) && materia2Type == string(ccmf.Gravity) {
-		resultantMateriaType = string(ccmf.HPUp)
-
-		// Complex Rule 78: MP Up, Gravity
-	} else if materia1Type == string(ccmf.MPUp) && materia2Type == string(ccmf.Gravity) {
-		resultantMateriaType = string(ccmf.MPUp)
-
-		// Complex Rule 78: AP Up, Gravity
-	} else if materia1Type == string(ccmf.APUp) && materia2Type == string(ccmf.Gravity) {
-		resultantMateriaType = string(ccmf.APUp)
-
-		// Complex Rule 78: ATK Up, Gravity
-	} else if materia1Type == string(ccmf.ATKUp) && materia2Type == string(ccmf.Gravity) {
-		resultantMateriaType = string(ccmf.ATKUp)
-
-		// Complex Rule 78: VIT Up, Gravity
-	} else if materia1Type == string(ccmf.VITUp) && materia2Type == string(ccmf.Gravity) {
-		resultantMateriaType = string(ccmf.VITUp)
-
-		// Complex Rule 78: MAG Up, Gravity
-	} else if materia1Type == string(ccmf.MAGUp) && materia2Type == string(ccmf.Gravity) {
-		resultantMateriaType = string(ccmf.MAGUp)
-
-		// Complex Rule 78: SPR Up, Gravity
-	} else if materia1Type == string(ccmf.SPRUp) && materia2Type == string(ccmf.Gravity) {
-		resultantMateriaType = string(ccmf.SPRUp)
-
-		// Complex Rule 78: (HP Up, MP Up, AP Up, ATK Up, VIT Up, MAG Up, SPR Up), Item
-	} else if (materia1Grade == materia2Grade) &&
-		(materia1Type == string(ccmf.HPUp) && materia2Type == string(ccmf.Item)) ||
-		(materia1Type == string(ccmf.MPUp) && materia2Type == string(ccmf.Item)) ||
-		(materia1Type == string(ccmf.APUp) && materia2Type == string(ccmf.Item)) ||
-		(materia1Type == string(ccmf.ATKUp) && materia2Type == string(ccmf.Item)) ||
-		(materia1Type == string(ccmf.VITUp) && materia2Type == string(ccmf.Item)) ||
-		(materia1Type == string(ccmf.MAGUp) && materia2Type == string(ccmf.Item)) ||
-		(materia1Type == string(ccmf.SPRUp) && materia2Type == string(ccmf.Item)) {
-		resultantMateriaType = string(ccmf.Item)
-
-		// Complex Rule 78: HP Up, Item
-	} else if materia1Type == string(ccmf.HPUp) && materia2Type == string(ccmf.Item) {
-		resultantMateriaType = string(ccmf.HPUp)
-
-		// Complex Rule 78: MP Up, Item
-	} else if materia1Type == string(ccmf.MPUp) && materia2Type == string(ccmf.Item) {
-		resultantMateriaType = string(ccmf.MPUp)
-
-		// Complex Rule 78: AP Up, Item
-	} else if materia1Type == string(ccmf.APUp) && materia2Type == string(ccmf.Item) {
-		resultantMateriaType = string(ccmf.APUp)
-
-		// Complex Rule 78: ATK Up, Item
-	} else if materia1Type == string(ccmf.ATKUp) && materia2Type == string(ccmf.Item) {
-		resultantMateriaType = string(ccmf.ATKUp)
-
-		// Complex Rule 78: VIT Up, Item
-	} else if materia1Type == string(ccmf.VITUp) && materia2Type == string(ccmf.Item) {
-		resultantMateriaType = string(ccmf.VITUp)
-
-		// Complex Rule 78: MAG Up, Item
-	} else if materia1Type == string(ccmf.MAGUp) && materia2Type == string(ccmf.Item) {
-		resultantMateriaType = string(ccmf.MAGUp)
-
-		// Complex Rule 78: SPR Up, Item
-	} else if materia1Type == string(ccmf.SPRUp) && materia2Type == string(ccmf.Item) {
-		resultantMateriaType = string(ccmf.SPRUp)
-
-		// Complex Rule 78: SP Turbo, Defense
+		// Complex Rule 56: (HP Up, MP Up, AP Up, ATK Up, VIT Up, MAG Up, SPR Up), Defense VERIFIED
+	} else if (materia1Type == string(ccmf.HPUp) ||
+		materia1Type == string(ccmf.MPUp) ||
+		materia1Type == string(ccmf.APUp) ||
+		materia1Type == string(ccmf.ATKUp) ||
+		materia1Type == string(ccmf.VITUp) ||
+		materia1Type == string(ccmf.MAGUp) ||
+		materia1Type == string(ccmf.SPRUp)) &&
+		materia2Type == string(ccmf.Defense) {
+		if (materia1Grade == 1 && materia2Grade == 1) || (materia1Grade == materia2Grade && materia2Mastered) {
+			resultantMateriaType = string(ccmf.Defense)
+			increaseGrade((&resultantMateriaGrade))
+		} else {
+			resultantMateriaType = materia1Type
+		}
+		// Complex Rule 57: (HP Up, VIT Up, SPR Up), Gravity VERIFIED
+	} else if (materia1Type == string(ccmf.HPUp) ||
+		materia1Type == string(ccmf.VITUp) ||
+		materia1Type == string(ccmf.SPRUp)) &&
+		materia2Type == string(ccmf.Gravity) {
+		if materia1Grade == materia2Grade {
+			resultantMateriaType = string(ccmf.Defense)
+			increaseGrade((&resultantMateriaGrade))
+		} else {
+			resultantMateriaType = materia1Type
+		}
+		//Complex Rule 58: (MP Up, MAG Up), Gravity VERIFIED
+	} else if (materia1Type == string(ccmf.MPUp) ||
+		materia1Type == string(ccmf.MAGUp)) &&
+		materia2Type == string(ccmf.Gravity) {
+		if materia1Grade == materia2Grade {
+			resultantMateriaType = string(ccmf.Gravity)
+			increaseGrade((&resultantMateriaGrade))
+		} else {
+			resultantMateriaType = materia1Type
+		}
+		//Complex Rule 59: (AP Up), Gravity VERIFIED
+	} else if (materia1Type == string(ccmf.APUp)) &&
+		materia2Type == string(ccmf.Gravity) {
+		if materia1Grade == materia2Grade {
+			resultantMateriaType = string(ccmf.QuickAttack)
+			increaseGrade((&resultantMateriaGrade))
+		} else {
+			resultantMateriaType = materia1Type
+		}
+		//Complex Rule 60: (ATK Up), Gravity VERIFIED
+	} else if (materia1Type == string(ccmf.ATKUp)) &&
+		materia2Type == string(ccmf.Gravity) {
+		if materia1Grade == materia2Grade {
+			resultantMateriaType = string(ccmf.BladeArts)
+			increaseGrade((&resultantMateriaGrade))
+		} else {
+			resultantMateriaType = materia1Type
+		}
+		// Complex Rule 61: (HP Up, MP Up, AP Up, ATK Up, VIT Up, MAG Up, SPR Up), Item VERIFIED
+	} else if (materia1Type == string(ccmf.HPUp) ||
+		materia1Type == string(ccmf.MPUp) ||
+		materia1Type == string(ccmf.APUp) ||
+		materia1Type == string(ccmf.ATKUp) ||
+		materia1Type == string(ccmf.VITUp) ||
+		materia1Type == string(ccmf.MAGUp) ||
+		materia1Type == string(ccmf.SPRUp)) &&
+		materia2Type == string(ccmf.Item) {
+		if materia1Grade == materia2Grade {
+			resultantMateriaType = string(ccmf.Item)
+			increaseGrade((&resultantMateriaGrade))
+		} else {
+			resultantMateriaType = materia1Type
+		}
+		// Complex Rule 62: SP Turbo, Defense VERIFIED
 	} else if materia1Type == string(ccmf.SPTurbo) && materia2Type == string(ccmf.Defense) {
 		if materia1Grade == 4 && materia2Grade == 4 {
 			resultantMateriaType = string(ccmf.Defense)
 		} else {
 			resultantMateriaType = string(ccmf.SPTurbo)
 		}
-		// Complex Rule 78: SP Turbo, Gravity
+		// Complex Rule 63: SP Turbo, Gravity VERIFIED
 	} else if materia1Type == string(ccmf.SPTurbo) && materia2Type == string(ccmf.Gravity) {
 		if materia1Grade == 5 && materia2Grade == 5 {
 			resultantMateriaType = string(ccmf.Gravity)
 		} else {
 			resultantMateriaType = string(ccmf.SPTurbo)
 		}
-		// Complex Rule 78: SP Turbo, Item
+		// Complex Rule 64: SP Turbo, Item VERIFIED
 	} else if materia1Type == string(ccmf.SPTurbo) && materia2Type == string(ccmf.Item) {
 		if (materia1Grade == 7 && materia2Grade == 7) || (materia1Grade == 5 && materia2Grade == 5) {
 			resultantMateriaType = string(ccmf.Item)
