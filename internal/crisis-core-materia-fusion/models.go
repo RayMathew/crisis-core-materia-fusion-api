@@ -3,9 +3,9 @@ package crisiscoremateriafusion
 type Materia struct {
 	Name        string `json:"name"`
 	Type        string `json:"materia_type"`
-	Grade       int    `json:"grade"`
 	DisplayType string `json:"display_type"`
 	Description string `json:"description"`
+	Grade       int    `json:"grade"`
 }
 
 type BasicCombinationRule struct {
@@ -578,17 +578,17 @@ var StatusMagicBasicRules = []BasicCombinationRule{
 }
 
 var FILStatusBasicRules = []BasicCombinationRule{
-	//FireStatus + FIL Rules
+	// FireStatus + FIL Rules
 	{FireStatus, Fire, FireStatus},
 	{FireStatus, Ice, LightningStatus},
 	{FireStatus, Lightning, IceStatus},
 
-	//IceStatus + FIL Rules
+	// IceStatus + FIL Rules
 	{IceStatus, Fire, LightningStatus},
 	{IceStatus, Ice, IceStatus},
 	{IceStatus, Lightning, FireStatus},
 
-	//LightningStatus + FIL Rules
+	// LightningStatus + FIL Rules
 	{LightningStatus, Fire, IceStatus},
 	{LightningStatus, Ice, FireStatus},
 	{LightningStatus, Lightning, LightningStatus},
@@ -1212,17 +1212,17 @@ var BladeArtsStatusBasicRules = []BasicCombinationRule{
 }
 
 var FILBladeBasicRules = []BasicCombinationRule{
-	//FireBlade + FIL Rules
+	// FireBlade + FIL Rules
 	{FireBlade, Fire, FireBlade},
 	{FireBlade, Ice, LightningBlade},
 	{FireBlade, Lightning, IceBlade},
 
-	//IceBlade + FIL Rules
+	// IceBlade + FIL Rules
 	{IceBlade, Fire, LightningBlade},
 	{IceBlade, Ice, IceBlade},
 	{IceBlade, Lightning, FireBlade},
 
-	//LightningBlade + FIL Rules
+	// LightningBlade + FIL Rules
 	{LightningBlade, Fire, IceBlade},
 	{LightningBlade, Ice, FireBlade},
 	{LightningBlade, Lightning, LightningBlade},

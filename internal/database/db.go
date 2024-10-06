@@ -7,7 +7,7 @@ import (
 	crisiscoremateriafusion "github.com/RayMathew/crisis-core-materia-fusion-api/internal/crisis-core-materia-fusion"
 	"github.com/jmoiron/sqlx"
 
-	_ "github.com/lib/pq"
+	_ "github.com/lib/pq" // Import PostgreSQL driver for database/sql
 )
 
 const defaultTimeout = 3 * time.Second
@@ -35,21 +35,26 @@ func NewConnection(dsn string) (*DB, error) {
 
 func (s *DB) GetAllMateria() ([]crisiscoremateriafusion.Materia, error) {
 	var allMateria []crisiscoremateriafusion.Materia
+
 	rows, err := s.DB.Query("SELECT name, materia_type, grade, display_materia_type, description FROM materia")
+
 	if err != nil {
 		return nil, err
 	}
+
 	defer rows.Close()
 	for rows.Next() {
 		var m crisiscoremateriafusion.Materia
-		err := rows.Scan(&m.Name, &m.Type, &m.Grade, &m.DisplayType, &m.Description)
+		err = rows.Scan(&m.Name, &m.Type, &m.Grade, &m.DisplayType, &m.Description)
+
 		if err != nil {
 			return nil, err
 		}
+
 		allMateria = append(allMateria, m)
 	}
 
-	if err = rows.Err(); err != nil {
+	if err := rows.Err(); err != nil {
 		return nil, err
 	}
 

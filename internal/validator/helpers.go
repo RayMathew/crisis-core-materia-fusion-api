@@ -25,8 +25,8 @@ func MaxRunes(value string, n int) bool {
 	return utf8.RuneCountInString(value) <= n
 }
 
-func Between[T constraints.Ordered](value, min, max T) bool {
-	return value >= min && value <= max
+func Between[T constraints.Ordered](value, minimum, maximum T) bool {
+	return value >= minimum && value <= maximum
 }
 
 func Matches(value string, rx *regexp.Regexp) bool {
@@ -39,6 +39,7 @@ func In[T comparable](value T, safelist ...T) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -48,6 +49,7 @@ func AllIn[T comparable](values []T, safelist ...T) bool {
 			return false
 		}
 	}
+
 	return true
 }
 
@@ -57,6 +59,7 @@ func NotIn[T comparable](value T, blocklist ...T) bool {
 			return false
 		}
 	}
+
 	return true
 }
 

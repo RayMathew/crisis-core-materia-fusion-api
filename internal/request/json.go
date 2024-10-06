@@ -28,9 +28,12 @@ func decodeJSON(w http.ResponseWriter, r *http.Request, dst interface{}, disallo
 	}
 
 	err := dec.Decode(dst)
+
 	if err != nil {
 		var syntaxError *json.SyntaxError
+
 		var unmarshalTypeError *json.UnmarshalTypeError
+
 		var invalidUnmarshalError *json.InvalidUnmarshalError
 
 		switch {
@@ -44,6 +47,7 @@ func decodeJSON(w http.ResponseWriter, r *http.Request, dst interface{}, disallo
 			if unmarshalTypeError.Field != "" {
 				return fmt.Errorf("body contains incorrect JSON type for field %q", unmarshalTypeError.Field)
 			}
+
 			return fmt.Errorf("body contains incorrect JSON type (at character %d)", unmarshalTypeError.Offset)
 
 		case errors.Is(err, io.EOF):

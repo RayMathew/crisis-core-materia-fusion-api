@@ -33,20 +33,20 @@ func main() {
 }
 
 type config struct {
-	baseURL  string
-	httpPort int
-	db       struct {
+	baseURL string
+	db      struct {
 		dsn string
 	}
+	httpPort int
 }
 
 type application struct {
-	config config
 	db     *database.DB
 	logger *slog.Logger
+	cache  map[string]interface{}
 	wg     sync.WaitGroup
-	cache  map[string]interface{} // (string key, any value)
 	mu     sync.Mutex
+	config config
 }
 
 func run(logger *slog.Logger) error {
