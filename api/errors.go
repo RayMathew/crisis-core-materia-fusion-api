@@ -50,6 +50,11 @@ func (app *application) methodNotAllowed(w http.ResponseWriter, r *http.Request)
 	app.errorMessage(w, r, http.StatusMethodNotAllowed, message, nil)
 }
 
+func (app *application) unsupportedMediaType(w http.ResponseWriter, r *http.Request) {
+	message := fmt.Sprintf("The %s Content-Type is not supported", r.Header.Get("Content-Type"))
+	app.errorMessage(w, r, http.StatusUnsupportedMediaType, message, nil)
+}
+
 func (app *application) badRequest(w http.ResponseWriter, r *http.Request, err error) {
 	app.errorMessage(w, r, http.StatusBadRequest, err.Error(), nil)
 }
