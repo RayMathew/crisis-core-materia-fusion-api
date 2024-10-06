@@ -53,6 +53,12 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	err = fusionReq.ValidateUserRequest()
+	if err != nil {
+		app.badRequest(w, r, err)
+		return
+	}
+
 	var allMateria []ccmf.Materia
 
 	allMateria, err = app.getAllMateriaFromApprSource()
@@ -107,7 +113,7 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 		app.logger.Info("none of the basic rules satisfy the requirement.")
 
 		//get final output using complex rules
-		resultantMateria = useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade, materia1Type, materia2Type, fusionReq.Materia1Mastered, fusionReq.Materia2Mastered, &allMateria)
+		resultantMateria = useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade, materia1Type, materia2Type, *fusionReq.Materia1Mastered, *fusionReq.Materia2Mastered, &allMateria)
 	} else {
 		//get final output using basic rules
 		resultantMateriaType := relevantBasicRule.ResultantMateriaType
@@ -158,10 +164,10 @@ func exchangePositionsIfNeeded(fusionReq *ccmf.MateriaFusionRequest, materia1Gra
 func determineGrade(req ccmf.MateriaFusionRequest, materia1Grade int) int {
 	finalGrade := materia1Grade
 
-	if finalGrade != 8 && req.Materia1Mastered {
+	if finalGrade != 8 && *req.Materia1Mastered {
 		finalGrade += 1
 	}
-	if finalGrade != 8 && req.Materia2Mastered {
+	if finalGrade != 8 && *req.Materia2Mastered {
 		finalGrade += 1
 	}
 	return finalGrade
