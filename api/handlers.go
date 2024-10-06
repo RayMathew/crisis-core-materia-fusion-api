@@ -53,9 +53,13 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = fusionReq.ValidateUserRequest()
-	if err != nil {
-		app.badRequest(w, r, err)
+	fusionReq.Validator.CheckField(fusionReq.Materia1Name != "", "materia1name", "materia1name is required")
+	fusionReq.Validator.CheckField(fusionReq.Materia2Name != "", "materia2name", "materia2name is required")
+	fusionReq.Validator.CheckField(fusionReq.Materia1Mastered != nil, "materia1mastered", "materia1mastered is required")
+	fusionReq.Validator.CheckField(fusionReq.Materia2Mastered != nil, "materia2mastered", "materia2mastered is required")
+
+	if fusionReq.Validator.HasErrors() {
+		app.failedValidation(w, r, fusionReq.Validator)
 		return
 	}
 

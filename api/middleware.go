@@ -42,7 +42,6 @@ func (app *application) rateLimiter(next http.Handler) http.Handler {
 
 func (app *application) apiTimeout(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 		timeoutDuration := time.Duration(app.config.apiTimeout) * time.Second
 		// Create a context with the specified timeout
 		ctx, cancel := context.WithTimeout(r.Context(), timeoutDuration)
