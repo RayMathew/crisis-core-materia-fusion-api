@@ -16,12 +16,19 @@ func (app *application) routes() http.Handler {
 	mux.HandlerFunc("GET", "/materia", app.getAllMateria)
 	mux.HandlerFunc("POST", "/fusion", app.fuseMateria)
 
-	return chainMiddlewares(mux, app.recoverPanic, app.contentTypeMiddleware)
+	return app.chainMiddlewares(mux)
 }
 
-func chainMiddlewares(handler http.Handler, middlewares ...func(http.Handler) http.Handler) http.Handler {
-	for i := len(middlewares) - 1; i >= 0; i-- {
-		handler = middlewares[i](handler)
+func (app *application) chainMiddlewares(next http.Handler) http.Handler {
+	middlewares := []func(http.Handler) http.Handler{
+		app.contentTypeMiddleware,
+		app.recoverPanic,
+		app.rateLimiter,
 	}
-	return handler
+
+	for _, middleware := range middlewares {
+		next = middleware(next)
+	}
+
+	return next
 }
