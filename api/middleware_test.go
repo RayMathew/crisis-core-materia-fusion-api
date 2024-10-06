@@ -16,17 +16,13 @@ func TestRecoverPanic(t *testing.T) {
 		panic("test panic")
 	})
 
-	// Wrap the panicHandler with the recoverPanic middleware
 	handler := app.recoverPanic(panicHandler)
 
-	// Create a test request and response recorder
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rr := httptest.NewRecorder()
 
-	// Call the handler
 	handler.ServeHTTP(rr, req)
 
-	// Check if a server error is written after panic
 	assert.Equal(t, http.StatusInternalServerError, rr.Code)
 }
 
@@ -69,13 +65,13 @@ func TestRateLimiter(t *testing.T) {
 	// Wrap with rateLimiter middleware
 	handler := app.rateLimiter(testHandler)
 
-	// Test: First request should succeed
+	// should succeed
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rr := httptest.NewRecorder()
 	handler.ServeHTTP(rr, req)
 	assert.Equal(t, http.StatusOK, rr.Code)
 
-	// Test: Second request should succeed
+	// should succeed
 	rr = httptest.NewRecorder()
 	handler.ServeHTTP(rr, req)
 	assert.Equal(t, http.StatusOK, rr.Code)
