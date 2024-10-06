@@ -75,7 +75,17 @@ func TestRateLimiter(t *testing.T) {
 	handler.ServeHTTP(rr, req)
 	assert.Equal(t, http.StatusOK, rr.Code)
 
-	// Test: Second request should be rate-limited
+	// Test: Second request should succeed
+	rr = httptest.NewRecorder()
+	handler.ServeHTTP(rr, req)
+	assert.Equal(t, http.StatusOK, rr.Code)
+
+	// should succeed
+	rr = httptest.NewRecorder()
+	handler.ServeHTTP(rr, req)
+	assert.Equal(t, http.StatusOK, rr.Code)
+
+	// should fail
 	rr = httptest.NewRecorder()
 	handler.ServeHTTP(rr, req)
 	assert.Equal(t, http.StatusTooManyRequests, rr.Code)

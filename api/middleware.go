@@ -34,7 +34,7 @@ func (app *application) contentTypeCheck(next http.Handler) http.Handler {
 }
 
 func (app *application) rateLimiter(next http.Handler) http.Handler {
-	limiter := tollbooth.NewLimiter(1, nil)
+	limiter := tollbooth.NewLimiter(app.config.apiCallsAllowedPerSecond, nil)
 	limiter.SetIPLookups([]string{"X-Real-IP", "X-Forwarded-For", "RemoteAddr"})
 
 	return tollbooth.LimitHandler(limiter, next)

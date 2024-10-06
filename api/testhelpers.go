@@ -13,9 +13,10 @@ func newTestApplication() *application {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
 
 	cfg := config{
-		baseURL:    "http://localhost:4000",
-		httpPort:   4000,
-		apiTimeout: 5,
+		baseURL:                  "http://localhost:4000",
+		httpPort:                 4000,
+		apiTimeout:               5,
+		apiCallsAllowedPerSecond: 3,
 	}
 
 	return &application{

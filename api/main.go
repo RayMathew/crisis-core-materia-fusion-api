@@ -37,8 +37,9 @@ type config struct {
 	db      struct {
 		dsn string
 	}
-	httpPort   int
-	apiTimeout int
+	httpPort                 int
+	apiTimeout               int
+	apiCallsAllowedPerSecond float64
 }
 
 type application struct {
@@ -57,6 +58,7 @@ func run(logger *slog.Logger) error {
 	cfg.httpPort = env.GetInt("HTTP_PORT")
 	cfg.db.dsn = env.GetString("DB_DSN")
 	cfg.apiTimeout = env.GetInt("API_TIMEOUT_SECONDS")
+	cfg.apiCallsAllowedPerSecond = float64(env.GetInt("API_CALLS_ALLOWED_PER_SECOND"))
 
 	showVersion := flag.Bool("version", false, "display version and exit")
 
