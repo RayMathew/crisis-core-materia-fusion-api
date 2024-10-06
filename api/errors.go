@@ -55,6 +55,11 @@ func (app *application) unsupportedMediaType(w http.ResponseWriter, r *http.Requ
 	app.errorMessage(w, r, http.StatusUnsupportedMediaType, message, nil)
 }
 
+func (app *application) gatewayTimeout(w http.ResponseWriter, r *http.Request) {
+	message := "Request timed out"
+	app.errorMessage(w, r, http.StatusGatewayTimeout, message, nil)
+}
+
 func (app *application) badRequest(w http.ResponseWriter, r *http.Request, err error) {
 	app.errorMessage(w, r, http.StatusBadRequest, err.Error(), nil)
 }

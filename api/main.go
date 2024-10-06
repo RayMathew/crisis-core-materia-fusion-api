@@ -37,7 +37,8 @@ type config struct {
 	db      struct {
 		dsn string
 	}
-	httpPort int
+	httpPort   int
+	apiTimeout int
 }
 
 type application struct {
@@ -55,6 +56,7 @@ func run(logger *slog.Logger) error {
 	cfg.baseURL = env.GetString("BASE_URL")
 	cfg.httpPort = env.GetInt("HTTP_PORT")
 	cfg.db.dsn = env.GetString("DB_DSN")
+	cfg.apiTimeout = env.GetInt("API_TIMEOUT_SECONDS")
 
 	showVersion := flag.Bool("version", false, "display version and exit")
 

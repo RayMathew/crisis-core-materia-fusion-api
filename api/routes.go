@@ -21,8 +21,9 @@ func (app *application) routes() http.Handler {
 
 func (app *application) chainMiddlewares(next http.Handler) http.Handler {
 	middlewares := []func(http.Handler) http.Handler{
-		app.contentTypeMiddleware,
 		app.recoverPanic,
+		app.contentTypeCheck,
+		app.apiTimeout,
 		app.rateLimiter,
 	}
 
