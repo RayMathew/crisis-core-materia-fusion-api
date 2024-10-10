@@ -39,6 +39,13 @@ env:
   REGION: 'us-central1'
   SERVICE: 'materia-fusion-api-gcloud-service'
   WORKLOAD_IDENTITY_PROVIDER: 'projects/792340131646/locations/global/workloadIdentityPools/github/providers/crisis-core-materia-fusion-api'
+  env_vars: |
+      BASE_URL=${{ secrets.BASE_URL }}
+      HTTP_PORT=${{ secrets.HTTP_PORT }}
+      DB_DSN=${{ secrets.DB_DSN }}
+      API_TIMEOUT_SECONDS=${{ secrets.API_TIMEOUT_SECONDS }}
+      API_CALLS_ALLOWED_PER_SECOND=${{ secrets.API_CALLS_ALLOWED_PER_SECOND }}
+      
 
 jobs:
   deploy:
