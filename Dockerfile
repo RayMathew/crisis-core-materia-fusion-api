@@ -28,9 +28,6 @@ COPY --from=builder /app/api .
 # Copy the certificates folder to the container
 COPY certs /app/certs
 
-COPY .env /app/.env
-
-
 # Expose the port the app runs on
 EXPOSE 4444
 
