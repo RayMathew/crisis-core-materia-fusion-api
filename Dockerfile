@@ -14,7 +14,13 @@ RUN go mod download
 COPY . .
 
 # Build the Go app with correct OS and architecture, and ensure executable permissions
-RUN GOOS=linux GOARCH=amd64 go build -o api ./api && chmod +x api
+RUN GOOS=linux GOARCH=amd64 go build -o /app/api ./api && chmod +x /app/api
+
+#Debug
+# RUN ls -la /app/api
+RUN chmod +x /app/api
+# Check certs directory
+RUN ls -la /app/certs
 
 # Start a new stage from scratch
 FROM alpine:latest
@@ -28,8 +34,16 @@ COPY --from=builder /app/api .
 # Copy the certificates folder to the container
 COPY certs /app/certs
 
+RUN ls -la
+RUN ls -la /app
+RUN ls -la /app/api
+# RUN chmod +x /app/api
+
 # Expose the port the app runs on
 EXPOSE 4444
 
-# Command to run the executable
+RUN pwd && ls -la
+
+# # Command to run the executable
 CMD ["./api"]
+
