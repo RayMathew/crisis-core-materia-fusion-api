@@ -69,6 +69,8 @@ func run(logger *slog.Logger) error {
 		return nil
 	}
 
+	fmt.Println("DB_DSN:", os.Getenv(cfg.db.dsn))
+
 	db, err := database.NewConnection(cfg.db.dsn)
 	if err != nil {
 		return err

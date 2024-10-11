@@ -25,6 +25,9 @@ RUN ls -la /app/certs
 # Start a new stage from scratch
 FROM alpine:latest
 
+# Install libc6-compat for compatibility with Go binary
+RUN apk add --no-cache libc6-compat
+
 # Set the Current Working Directory inside the container
 WORKDIR /app
 
@@ -34,9 +37,7 @@ COPY --from=builder /app/api .
 # Copy the certificates folder to the container
 COPY certs /app/certs
 
-RUN ls -la
-RUN ls -la /app
-RUN ls -la /app/api
+RUN cat /app/certs/root.crt
 # RUN chmod +x /app/api
 
 # Expose the port the app runs on
