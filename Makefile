@@ -63,3 +63,27 @@ run/live:
 		--build.include_ext "go, tpl, tmpl, html, css, scss, js, ts, sql, jpeg, jpg, gif, png, bmp, svg, webp, ico" \
 		--misc.clean_on_exit "true"
 
+# ==================================================================================== #
+# DEBUG
+# ==================================================================================== #
+
+# The Dockerfile is currently written for building on the Google Cloud. 
+# If needed in local, add this line COPY .env /app/.env, as the env values in Cloud are fetched using the Cloud's env variables manager.
+# Then use below commands.
+
+## build docker image
+dbuild:
+	docker build -t materia-fusion-api .
+
+## create and run container
+drun:
+	docker run --name my-materia-api -p 4444:4444 materia-fusion-api
+
+## stop container
+dstop:
+	docker stop my-materia-api
+
+## start container
+dstart:
+	docker start my-materia-api
+
