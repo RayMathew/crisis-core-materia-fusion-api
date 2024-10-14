@@ -9,9 +9,22 @@ import (
 	"github.com/RayMathew/crisis-core-materia-fusion-api/internal/response"
 )
 
+// status godoc
+//
+//	@Summary		Health Check
+//	@Description	Use this endpoint to check that the server is up and responsive.
+//
+// @Accept application/json
+//
+// @Success 200 {object} StatusDTO "Successful Response"
+// @Failure 429 {string} string "You have reached maximum request limit."
+// @Failure 500 {object} ErrorResponseDTO "Error response"
+// @Failure 504 {object} ErrorResponseDTO "Request Timed Out"
+//
+//	@Router			/status [get]
 func (app *application) status(w http.ResponseWriter, r *http.Request) {
-	data := map[string]string{
-		"Status": "OK",
+	data := StatusDTO{
+		Status: "OK",
 	}
 
 	err := response.JSON(w, http.StatusOK, data)
@@ -20,8 +33,21 @@ func (app *application) status(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// getAllMateria godoc
+//
+//	@Summary List of all materia
+//	@Description Get list of all materia used in the game.
+//
+// @Accept application/json
+//
+// @Success 200 {array} MateriaDTO "List of all materia"
+// @Failure 429 {string} string "Too Many Requests"
+// @Failure 500 {object} ErrorResponseDTO "Error response"
+// @Failure 504 {object} ErrorResponseDTO "Request Timed Out"
+//
+//	@Router			/materia [get]
 func (app *application) getAllMateria(w http.ResponseWriter, r *http.Request) {
-	var allDisplayMateria []ccmf.MateriaDTO
+	var allDisplayMateria []MateriaDTO
 	var allMateria []ccmf.Materia
 	var err error
 
@@ -32,7 +58,7 @@ func (app *application) getAllMateria(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, materia := range allMateria {
-		allDisplayMateria = append(allDisplayMateria, ccmf.MateriaDTO{
+		allDisplayMateria = append(allDisplayMateria, MateriaDTO{
 			Name:        materia.Name,
 			Type:        materia.DisplayType,
 			Description: materia.Description,
@@ -45,8 +71,27 @@ func (app *application) getAllMateria(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// fuseMateria godoc
+//
+//	@Summary Fuse two materia
+//	@Description Simulate the fusion of two materia and get the resulting materia.
+//
+// @Accept application/json
+// @Produce application/json
+//
+// @Param        body  body    MateriaFusionRequest  true  "Fusion Request Data"
+//
+// @Success 200 {object} MateriaDTO "Fused Materia Response"
+// @Failure 400 {object} ErrorResponseDTO "Bad Request"
+// @Failure 415 {object} ErrorResponseDTO "Unsupported Media Type"
+// @Failure 422 {object} ErrorResponseDTO "Failed Validation"
+// @Failure 429 {string} string "Too Many Requests"
+// @Failure 500 {object} ErrorResponseDTO "Error response"
+// @Failure 504 {object} ErrorResponseDTO "Request Timed Out"
+//
+//	@Router			/fusion [post]
 func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
-	var fusionReq ccmf.MateriaFusionRequest
+	var fusionReq MateriaFusionRequest
 	err := request.DecodeJSON(w, r, &fusionReq)
 	if err != nil {
 		app.badRequest(w, r, err)
@@ -110,7 +155,7 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	var resultantMateria ccmf.MateriaDTO
+	var resultantMateria MateriaDTO
 
 	resultantMateriaGrade := determineGrade(fusionReq, materia1Grade)
 
@@ -146,7 +191,7 @@ func (app *application) fuseMateria(w http.ResponseWriter, r *http.Request) {
 }
 
 // positions are exchanged if materia2 grade is higher
-func exchangePositionsIfNeeded(fusionReq *ccmf.MateriaFusionRequest, materia1Grade, materia2Grade *int, materia1Type, materia2Type *string) {
+func exchangePositionsIfNeeded(fusionReq *MateriaFusionRequest, materia1Grade, materia2Grade *int, materia1Type, materia2Type *string) {
 	if *materia2Grade > *materia1Grade {
 		*materia1Grade, *materia2Grade = *materia2Grade, *materia1Grade
 
@@ -158,7 +203,7 @@ func exchangePositionsIfNeeded(fusionReq *ccmf.MateriaFusionRequest, materia1Gra
 	}
 }
 
-func determineGrade(req ccmf.MateriaFusionRequest, materia1Grade int) int {
+func determineGrade(req MateriaFusionRequest, materia1Grade int) int {
 	finalGrade := materia1Grade
 
 	if finalGrade != 8 && *req.Materia1Mastered {
@@ -176,7 +221,7 @@ func increaseGrade(resultantMateriaGrade *int) {
 	}
 }
 
-func updateResultantMateriaData(allMateria *[]ccmf.Materia, resultantMateriaGrade int, resultantMateriaType string, resultantMateria *ccmf.MateriaDTO) {
+func updateResultantMateriaData(allMateria *[]ccmf.Materia, resultantMateriaGrade int, resultantMateriaType string, resultantMateria *MateriaDTO) {
 	for _, materia := range *allMateria {
 		if materia.Grade == resultantMateriaGrade && materia.Type == resultantMateriaType {
 			resultantMateria.Name = materia.Name
@@ -187,7 +232,7 @@ func updateResultantMateriaData(allMateria *[]ccmf.Materia, resultantMateriaGrad
 	}
 }
 
-func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, materia1Type, materia2Type string, materia1Mastered, materia2Mastered bool, allMateria *[]ccmf.Materia) (resultantMateria ccmf.MateriaDTO) {
+func useComplexRules(materia1Grade, materia2Grade, resultantMateriaGrade int, materia1Type, materia2Type string, materia1Mastered, materia2Mastered bool, allMateria *[]ccmf.Materia) (resultantMateria MateriaDTO) {
 	var resultantMateriaType string
 
 	switch {

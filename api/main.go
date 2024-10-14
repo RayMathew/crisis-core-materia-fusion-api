@@ -16,6 +16,19 @@ import (
 	"github.com/lmittmann/tint"
 )
 
+//	@title			Crisi Core Materia Fusion API
+//	@description	A server for simulating Materia Fusion outputs in the game Crisis Core: Final Fantasy VII
+//	@version	0.1
+
+//	@contact.name	Ray Mathew
+//	@contact.url	https://github.com/RayMathew/
+//	@contact.email	ray10mathew@gmail.com
+
+//	@license.name	GNU GENERAL PUBLIC LICENSE
+//	@license.url	https://www.gnu.org/licenses/gpl-3.0.en.html
+
+// @host		crisis-core-materia-fusion-api-546461677134.us-central1.run.app
+// @schemes https
 func main() {
 	err := godotenv.Load(".env") // Loads variables from .env file
 	if err != nil {
@@ -68,8 +81,6 @@ func run(logger *slog.Logger) error {
 		fmt.Printf("version: %s\n", version.Get())
 		return nil
 	}
-
-	fmt.Println("DB_DSN:", os.Getenv(cfg.db.dsn))
 
 	db, err := database.NewConnection(cfg.db.dsn)
 	if err != nil {

@@ -1,0 +1,149 @@
+definitions:
+  main.ErrorResponseDTO:
+    properties:
+      Error:
+        example: The server encountered a problem and could not process your request
+        type: string
+    type: object
+  main.MateriaDTO:
+    properties:
+      description:
+        example: Shoots lightning forward dealing thunder damage.
+        type: string
+      name:
+        example: Thunder
+        type: string
+      type:
+        example: Magic
+        type: string
+    type: object
+  main.MateriaFusionRequest:
+    properties:
+      materia1mastered:
+        example: true
+        type: boolean
+      materia1name:
+        example: Fire
+        type: string
+      materia2mastered:
+        example: false
+        type: boolean
+      materia2name:
+        example: Blizzard
+        type: string
+    type: object
+  main.StatusDTO:
+    properties:
+      Status:
+        example: OK
+        type: string
+    type: object
+host: crisis-core-materia-fusion-api-546461677134.us-central1.run.app
+info:
+  contact:
+    email: ray10mathew@gmail.com
+    name: Ray Mathew
+    url: https://github.com/RayMathew/
+  description: 'A server for simulating Materia Fusion outputs in the game Crisis
+    Core: Final Fantasy VII'
+  license:
+    name: GNU GENERAL PUBLIC LICENSE
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  title: Crisi Core Materia Fusion API
+  version: "0.1"
+paths:
+  /fusion:
+    post:
+      consumes:
+      - application/json
+      description: Simulate the fusion of two materia and get the resulting materia.
+      parameters:
+      - description: Fusion Request Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.MateriaFusionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Fused Materia Response
+          schema:
+            $ref: '#/definitions/main.MateriaDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+        "415":
+          description: Unsupported Media Type
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+        "422":
+          description: Failed Validation
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+        "429":
+          description: Too Many Requests
+          schema:
+            type: string
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+        "504":
+          description: Request Timed Out
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+      summary: Fuse two materia
+  /materia:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all materia used in the game.
+      responses:
+        "200":
+          description: List of all materia
+          schema:
+            items:
+              $ref: '#/definitions/main.MateriaDTO'
+            type: array
+        "429":
+          description: Too Many Requests
+          schema:
+            type: string
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+        "504":
+          description: Request Timed Out
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+      summary: List of all materia
+  /status:
+    get:
+      consumes:
+      - application/json
+      description: Use this endpoint to check that the server is up and responsive.
+      responses:
+        "200":
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/main.StatusDTO'
+        "429":
+          description: You have reached maximum request limit.
+          schema:
+            type: string
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+        "504":
+          description: Request Timed Out
+          schema:
+            $ref: '#/definitions/main.ErrorResponseDTO'
+      summary: Health Check
+schemes:
+- https
+swagger: "2.0"

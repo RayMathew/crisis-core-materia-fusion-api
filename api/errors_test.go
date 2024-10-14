@@ -8,7 +8,6 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	ccmf "github.com/RayMathew/crisis-core-materia-fusion-api/internal/crisis-core-materia-fusion"
 	"github.com/stretchr/testify/require"
 )
 
@@ -123,7 +122,7 @@ func TestFailedValidation(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/", nil)
 	rr := httptest.NewRecorder()
 
-	var fusionReq ccmf.MateriaFusionRequest
+	var fusionReq MateriaFusionRequest
 	fusionReq.Validator.AddFieldError("field", "must be provided")
 
 	app.failedValidation(rr, req, fusionReq.Validator)
