@@ -1,4 +1,4 @@
-package crisiscoremateriafusion
+package main
 
 import (
 	"github.com/RayMathew/crisis-core-materia-fusion-api/internal/validator"
