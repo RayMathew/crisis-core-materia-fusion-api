@@ -31,7 +31,7 @@ func (app *application) errorMessage(w http.ResponseWriter, r *http.Request, sta
 
 	message = strings.ToUpper(message[:1]) + message[1:]
 
-	err := response.JSONWithHeaders(w, status, map[string]string{"Error": message}, headers)
+	err := response.JSONWithHeaders(w, status, ErrorResponseDTO{Error: message}, headers)
 	if err != nil {
 		app.reportServerError(r, err)
 		if w.Header().Get("Content-Type") == "" {
