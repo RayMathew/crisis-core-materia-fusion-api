@@ -2,20 +2,20 @@
 
 An API based on the game [Crisis Core: Final Fantasy VII](https://en.wikipedia.org/wiki/Crisis_Core:_Final_Fantasy_VII) for simulating fusion of materia.
 
-If you want to just try it out, skip to [Getting Started](#getting-started).
+To try it out, skip to [Getting Started](#getting-started).
 
 ## Motivation for building this project
 
 ### The game doesn't make it easy to guess the fusion output
 
-- The patterns and rules used to determine the fusion output of two materia are surprisingly complex. For example, the output can change if Materia 1 and Materia 2 are interchanged, or if one or both materia are 'Mastered'. These factors, along with 144 different materia, lead to over **280,000** possible permutations!
-- Even trial and error is difficult, because you first need to acquire the input materia in the game to see what the output might be.
+- The patterns and rules used to determine the fusion output of two materia are surprisingly complex. For example, the output can change if Materia 1 and Materia 2 are interchanged, or if one or both materia are 'Mastered'. These complex rules, when applied to 144 distinct materia, lead to over **280,000** possible permutations!
+- Even trial and error is challenging, as you must first obtain the input materia in the game before you can see what the fusion output might be.
 
-This API solves both these problems.
+This API seeks to address both these pain points.
 
 ### An excuse to learn a ton of stuff
 
-- As primarily a Frontend Dev, I wanted to learn Go and PostgreSQL. The prospect of building something practical, useful AND for one of my favourite game series of all time was way more fun than going through yet another YouTube course.
+- I wanted to learn Go and PostgreSQL. The prospect of building something practical, useful AND for one of my favourite game series of all time was way more fun than going through yet another YouTube course.
 - This will also explain why some of the [features](#technical-features) of the API feel like overkill.
 - I've written about the journey I went through to and the things I learnt while building this project (link coming soon).
 
