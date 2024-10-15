@@ -17,7 +17,7 @@ import (
 )
 
 //	@title			Crisi Core Materia Fusion API
-//	@description	A server for simulating Materia Fusion outputs in the game Crisis Core: Final Fantasy VII
+//	@description	An API based on the game "Crisis Core: Final Fantasy VII", to simulate fusion of materia.
 //	@version	0.1
 
 //	@contact.name	Ray Mathew

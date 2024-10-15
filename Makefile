@@ -34,6 +34,10 @@ test/cover:
 	go test -v -race -buildvcs -coverprofile=/tmp/coverage.out ./...
 	go tool cover -html=/tmp/coverage.out
 
+## install golangci-lint first. go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+lint:
+	golangci-lint run
+
 # ==================================================================================== #
 # DEVELOPMENT
 # ==================================================================================== #
