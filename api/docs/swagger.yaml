@@ -44,8 +44,8 @@ info:
     email: ray10mathew@gmail.com
     name: Ray Mathew
     url: https://github.com/RayMathew/
-  description: 'A server for simulating Materia Fusion outputs in the game Crisis
-    Core: Final Fantasy VII'
+  description: 'An API based on the game "Crisis Core: Final Fantasy VII", to simulate
+    fusion of materia.'
   license:
     name: GNU GENERAL PUBLIC LICENSE
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -143,7 +143,7 @@ paths:
           description: Request Timed Out
           schema:
             $ref: '#/definitions/main.ErrorResponseDTO'
-      summary: Health Check
+      summary: health check
 schemes:
 - https
 swagger: "2.0"

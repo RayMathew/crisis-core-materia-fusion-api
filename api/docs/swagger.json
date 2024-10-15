@@ -4,7 +4,7 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "A server for simulating Materia Fusion outputs in the game Crisis Core: Final Fantasy VII",
+        "description": "An API based on the game \"Crisis Core: Final Fantasy VII\", to simulate fusion of materia.",
         "title": "Crisi Core Materia Fusion API",
         "contact": {
             "name": "Ray Mathew",
@@ -130,7 +130,7 @@
                 "consumes": [
                     "application/json"
                 ],
-                "summary": "Health Check",
+                "summary": "health check",
                 "responses": {
                     "200": {
                         "description": "Successful Response",

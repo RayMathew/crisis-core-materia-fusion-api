@@ -134,7 +134,7 @@ const docTemplate = `{
                 "consumes": [
                     "application/json"
                 ],
-                "summary": "Health Check",
+                "summary": "health check",
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -231,7 +231,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "",
 	Schemes:          []string{"https"},
 	Title:            "Crisi Core Materia Fusion API",
-	Description:      "A server for simulating Materia Fusion outputs in the game Crisis Core: Final Fantasy VII",
+	Description:      "An API based on the game \"Crisis Core: Final Fantasy VII\", to simulate fusion of materia.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

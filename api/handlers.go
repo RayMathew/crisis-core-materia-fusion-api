@@ -11,7 +11,7 @@ import (
 
 // status godoc
 //
-//	@Summary		Health Check
+//	@Summary		health check
 //	@Description	Use this endpoint to check that the server is up and responsive.
 //
 // @Accept application/json
