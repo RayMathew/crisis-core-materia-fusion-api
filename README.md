@@ -4,6 +4,8 @@ An API based on the game [Crisis Core: Final Fantasy VII](https://en.wikipedia.o
 
 To try it out, skip to [Getting Started](#getting-started).
 
+<img width="1062" alt="Screenshot" src="https://github.com/user-attachments/assets/83f2b32c-1856-41d9-85eb-6dfc1b76987f">
+
 ## Motivation for building this project
 
 ### The game doesn't make it easy to guess the fusion output
