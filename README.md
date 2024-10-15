@@ -13,7 +13,7 @@ To try it out, skip to [Getting Started](#getting-started).
 
 This API seeks to address both these pain points.
 
-### An excuse to learn a ton of stuff
+### An excuse to learn stuff
 
 - I wanted to learn Go and PostgreSQL. The prospect of building something practical, useful AND for one of my favourite game series of all time was way more fun than going through yet another YouTube course.
 - This will also explain why some of the [features](#technical-features) of the API feel like overkill.
@@ -21,12 +21,12 @@ This API seeks to address both these pain points.
 
 ## Getting started
 
-- [OpenAPI documentation](https://crisis-core-materia-fusion-api-546461677134.us-central1.run.app/docs). Try it out, no authentication required.
+- [OpenAPI documentation and testing](https://crisis-core-materia-fusion-api-546461677134.us-central1.run.app/docs). Try it out, no authentication required.
 - Use the [Discussions tab](https://github.com/RayMathew/crisis-core-materia-fusion-api/discussions) for questions and comments.
 
 ### Running locally
 
-Assumptions: You already have a PostgreSQL DB up and running. If you want to create a local instance in Mac I recommend [Homebrew](https://formulae.brew.sh/formula/postgresql@16#default). If you want to create a remote instance, [try this](https://www.cockroachlabs.com/docs/stable/deploy-app-gcr).
+Assumptions: You already have a PostgreSQL DB up and running. If you want to create a local instance in MacOS I recommend [Homebrew](https://formulae.brew.sh/formula/postgresql@16#default). If you want to create a remote instance, [try this](https://www.cockroachlabs.com/docs/stable/deploy-app-gcr).
 
 1. After downloading the repo, create a `.env` file in the root directory with the following keys:
 
@@ -56,9 +56,9 @@ Assumptions: You already have a PostgreSQL DB up and running. If you want to cre
 
 ### Running locally - with Docker
 
-The Dockerfile is currently being used only for deploying on Cloud Run. To use it locally, do the following:
+The Dockerfile is currently being used only for deploying on Google Cloud Run. If you wish to use it locally, do the following:
 
-1. Create `.env` file, just like in above section.
+1. Create the `.env` file, just like in the above section.
 2. Add the line `COPY .env /app/.env` to the Dockerfile to copy your secret environment variables into the Docker image.
 3. Run:
 
@@ -77,14 +77,14 @@ The Dockerfile is currently being used only for deploying on Cloud Run. To use i
 |---------------------|-------------|
 | Language            | Go          |
 | DB                  | PostgreSQL  |
-| Web server platform | [Google Run](https://cloud.google.com/run?hl=en)  |
+| Web server platform | [Google Cloud Run](https://cloud.google.com/run?hl=en)  |
 | DB platform         | [CockroachDB](https://www.cockroachlabs.com/) |
 | Documentation       | [go-swagger](https://goswagger.io/go-swagger/)     |
 
 ## Technical Features
 
 1. The brilliant [Autostrada.dev](https://autostrada.dev/) was used to generate the project's boilerplate code.
-2. The API uses an **in-server cache**, since both `/materia` and `/fusion` endpoints use the same data, and the data is static. So, requests to the DB happen only on server redeployments.
+2. The API uses an **in-server cache**, since both `/materia` and `/fusion` endpoints use the same data, and the data is static. So, requests to the DB happen only once after the server is redeployed.
 3. The API has middleware for:
 
     - panic recovery
@@ -92,7 +92,7 @@ The Dockerfile is currently being used only for deploying on Cloud Run. To use i
     - rate limiting
     - api timeout protection
 
-4. The inputs for `/fusion` endpoint have validations for mandatory keys, data types, and materia names.
+4. The inputs for the `/fusion` endpoint have validations for mandatory keys, data types, and materia names.
 5. A `.golangci.yaml` file is available for lint checks in local. Install [golanci-lint](https://golangci-lint.run/) first.
 6. A Dockerfile is available for building the API and running as a container. It is currently being used only for deploying on Cloud Run. To use locally, see the comments in `<rootfolder>/Makefile`.
 7. The code constitutes over **1300 rules** to determine fusion ouputs.
@@ -102,7 +102,7 @@ The Dockerfile is currently being used only for deploying on Cloud Run. To use i
 1. Add more unit tests.
 2. Create a separate Dockerfile for local builds, and move PostgreSQL setup into it.
 3. Reduce the setup required for `.env` file.
-4. Add `.golangci.yaml` into the pipeline and fine-tune the individual linter checks. This might incur some costs, so it is the least priority for now.
+4. Add `.golangci.yaml` into the pipeline and fine-tune the individual linter checks. This might incur some costs, so it is the lowest priority for now.
 5. The big one - create a new endpoint for materia fusion with items.
 
 ## Thanks

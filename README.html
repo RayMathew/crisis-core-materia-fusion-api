@@ -67,7 +67,7 @@
         what the fusion output might be.</li>
     </ul>
     <p>This API seeks to address both these pain points.</p>
-    <h3 id="an-excuse-to-learn-a-ton-of-stuff">An excuse to learn a ton of stuff</h3>
+    <h3 id="an-excuse-to-learn-a-ton-of-stuff">An excuse to learn stuff</h3>
     <ul>
       <li>I wanted to learn Go and PostgreSQL. The prospect of building something
         practical, useful AND for one of my favourite game series of all time was way more fun than going through yet
@@ -78,12 +78,12 @@
     <h2 id="getting-started">Getting started</h2>
     <ul>
       <li><a href="https://crisis-core-materia-fusion-api-546461677134.us-central1.run.app/docs">OpenAPI
-          documentation</a>. Try it out, no authentication required.</li>
+          documentation and testing</a>. Try it out, no authentication required.</li>
       <li>Use the <a href="https://github.com/RayMathew/crisis-core-materia-fusion-api/discussions">Discussions tab</a>
         for questions and comments.</li>
     </ul>
     <h3 id="running-locally">Running locally</h3>
-    <p>Assumptions: You already have a PostgreSQL DB up and running. If you want to create a local instance in Mac I
+    <p>Assumptions: You already have a PostgreSQL DB up and running. If you want to create a local instance in MacOS I
       recommend <a href="https://formulae.brew.sh/formula/postgresql@16#default">Homebrew</a>. If you want to create a
       remote instance, <a href="https://www.cockroachlabs.com/docs/stable/deploy-app-gcr">try this</a>.</p>
     <ol>
@@ -125,9 +125,9 @@
       </li>
     </ol>
     <h3 id="running-locally-with-docker">Running locally - with Docker</h3>
-    <p>The Dockerfile is currently being used only for deploying on Cloud Run. To use it locally, do the following:</p>
+    <p>The Dockerfile is currently being used only for deploying on Google Cloud Run. If you wish to use it locally, do the following:</p>
     <ol>
-      <li>Create <code>.env</code> file, just like in above section.</li>
+      <li>Create the <code>.env</code> file, just like in the above section.</li>
       <li>Add the line <code>COPY .env /app/.env</code> to the Dockerfile to copy your secret environment variables into
         the Docker image.</li>
       <li>
@@ -156,7 +156,7 @@
         </tr>
         <tr>
           <td>Web server platform</td>
-          <td><a href="https://cloud.google.com/run?hl=en">Google Run</a></td>
+          <td><a href="https://cloud.google.com/run?hl=en">Google Cloud Run</a></td>
         </tr>
         <tr>
           <td>DB platform</td>
@@ -173,7 +173,7 @@
       <li>The brilliant <a href="https://autostrada.dev/">Autostrada.dev</a> was used to generate the project&#39;s
         boilerplate code.</li>
       <li>The API uses an <strong>in-server cache</strong>, since both <code>/materia</code> and <code>/fusion</code>
-        endpoints use the same data, and the data is static. So, requests to the DB happen only on server redeployments.
+        endpoints use the same data, and the data is static. So, requests to the DB happen only once after the server is redeployed.
       </li>
       <li>
         <p>The API has middleware for:</p>
@@ -185,7 +185,7 @@
         </ul>
       </li>
       <li>
-        <p>The inputs for <code>/fusion</code> endpoint have validations for mandatory keys, data types, and materia
+        <p>The inputs for the <code>/fusion</code> endpoint have validations for mandatory keys, data types, and materia
           names.</p>
       </li>
       <li>A <code>.golangci.yaml</code> file is available for lint checks in local. Install <a
@@ -200,7 +200,7 @@
       <li>Create a separate Dockerfile for local builds, and move PostgreSQL setup into it.</li>
       <li>Reduce the setup required for <code>.env</code> file.</li>
       <li>Add <code>.golangci.yaml</code> into the pipeline and fine-tune the individual linter checks. This might incur
-        some costs, so it is the least priority for now.</li>
+        some costs, so it is the lowest priority for now.</li>
       <li>The big one - create a new endpoint for materia fusion with items.</li>
     </ol>
     <h2 id="thanks">Thanks</h2>
