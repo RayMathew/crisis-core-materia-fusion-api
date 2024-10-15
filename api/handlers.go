@@ -57,12 +57,16 @@ func (app *application) getAllMateria(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, r, err)
 	}
 
+	seenMateriaNames := make(map[string]bool)
 	for _, materia := range allMateria {
-		allDisplayMateria = append(allDisplayMateria, MateriaDTO{
-			Name:        materia.Name,
-			Type:        materia.DisplayType,
-			Description: materia.Description,
-		})
+		if _, isDuplicate := seenMateriaNames[materia.Name]; !isDuplicate {
+			seenMateriaNames[materia.Name] = true
+			allDisplayMateria = append(allDisplayMateria, MateriaDTO{
+				Name:        materia.Name,
+				Type:        materia.DisplayType,
+				Description: materia.Description,
+			})
+		}
 	}
 
 	err = response.JSON(w, http.StatusOK, allDisplayMateria)
