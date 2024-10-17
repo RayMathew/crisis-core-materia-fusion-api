@@ -24,6 +24,7 @@ This API seeks to address both these pain points.
 ## Getting started
 
 - [OpenAPI documentation and testing](https://crisis-core-materia-fusion-api-546461677134.us-central1.run.app/docs). Try it out, no authentication required.
+- OR fork the collection [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/991689-61f8077f-247a-4b93-b05c-10ec8334291a?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D991689-61f8077f-247a-4b93-b05c-10ec8334291a%26entityType%3Dcollection%26workspaceId%3Dfa225677-6c1f-4a17-bbba-a7c3b52d6721)
 - Use the [Discussions tab](https://github.com/RayMathew/crisis-core-materia-fusion-api/discussions) for questions and comments.
 
 ### Running locally
@@ -71,7 +72,7 @@ The Dockerfile is currently being used only for deploying on Google Cloud Run. I
 
 ### Testing locally
 
-- Use `<rootfolder>/api/docs/swagger.json` (or the [hosted version](https://crisis-core-materia-fusion-api-546461677134.us-central1.run.app/docs/doc.json)) to import all endpoint definitions into tools like Postman.
+- Use the OpenAPI definition `<rootfolder>/api/docs/swagger.json` to import all endpoint definitions into tools like Postman.
 
 ## Tech stack
 
