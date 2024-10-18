@@ -102,11 +102,13 @@ The Dockerfile is currently being used only for deploying on Google Cloud Run. I
 
 ## Future Roadmap
 
-1. Add more unit tests.
-2. Create a separate Dockerfile for local builds, and move PostgreSQL setup into it.
-3. Reduce the setup required for `.env` file.
-4. Add `.golangci.yaml` into the pipeline and fine-tune the individual linter checks. This might incur some costs, so it is the lowest priority for now.
-5. The big one - create a new endpoint for materia fusion with items.
+1. Rules for DMW, Dash and Dualcast materia are pending. They weren't a priority for the first releast because for the most these materia + 'X' just gives back 'X'.
+2. Testing for all the possible permutations is next to impossible. I can simulate the permutations in the API, but I cannot verify they match with the game output. I need others to play the game as well and test it out.
+3. Add more unit tests.
+4. Create a separate Dockerfile for local builds, and move PostgreSQL setup into it.
+5. Reduce the setup required for `.env` file.
+6. Add `.golangci.yaml` into the pipeline and fine-tune the individual linter checks. This might incur some costs, so it is the lowest priority for now.
+7. The big one - create a new endpoint for materia fusion with items.
 
 ## Thanks
 
