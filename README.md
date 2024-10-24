@@ -19,7 +19,7 @@ This API seeks to address both these pain points.
 
 - I wanted to learn Go and PostgreSQL. The prospect of building something practical, useful AND for one of my favourite game series of all time was way more fun than going through yet another YouTube course.
 - This will also explain why some of the [features](#technical-features) of the API feel like overkill.
-- I've written about the journey I went through and the things I learnt while building this project (link coming soon).
+- I've [written](https://medium.com/@raymathew/everything-i-learnt-while-building-an-api-tool-with-go-postgresql-and-google-cloud-for-the-game-3268581e1ccb) about the journey I went through and the things I learnt while building this project.
 
 ## Getting started
 
