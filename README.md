@@ -102,7 +102,7 @@ The Dockerfile is currently being used only for deploying on Google Cloud Run. I
 
 ## Future Roadmap
 
-1. Rules for DMW, Dash and Dualcast materia are pending. They weren't a priority for the first releast because for the most these materia + 'X' just gives back 'X'.
+1. Rules for DMW, Dash and Dualcast materia are pending. They weren't a priority for the first release because for the most these materia + 'X' just gives back 'X'.
 2. Testing for all the possible permutations is next to impossible. I can simulate the permutations in the API, but I cannot verify they match with the game output. I need others to play the game as well and test it out.
 3. Add more unit tests.
 4. Create a separate Dockerfile for local builds, and move PostgreSQL setup into it.
